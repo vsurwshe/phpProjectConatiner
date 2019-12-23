@@ -20,9 +20,12 @@ services:
   website:
     container_name: php72
     build:
-      context: ./
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8001:80
+    volumes: 
+      - "./src:/var/www/html/"
     depends_on:
       - mysql
     networks:

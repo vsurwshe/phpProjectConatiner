@@ -96,9 +96,9 @@ for ( i = 0; i<300; i++) {
   }
 
   // This sections auto playing audio tag
-  var audio = document.getElementById("audioId");
-  audio.autoplay = true;
-  audio.load();
+  // var audio = document.getElementById("audioId");
+  // audio.autoplay = true;
+  // audio.load();
 
 function mycall(){
     window.location.href="http://vany.is-best.net/?i=1"

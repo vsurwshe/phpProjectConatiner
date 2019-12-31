@@ -11,4 +11,5 @@ RUN mv composer /usr/local/bin/
 # Copy the project floder into server
 # COPY ./src/ /var/www/html/
 RUN chown -R www-data:www-data  /var/www/html
+RUN chmod -R 777 /var/www/html
 EXPOSE 80

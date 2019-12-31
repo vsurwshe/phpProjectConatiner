@@ -1,1 +1,37 @@
-<h1>Welcome to First Practices</h1>
+<html>
+    <head>
+        <title>This is First Practical</title>
+    </head>
+    <body>
+        <h1>Welcome Simple Javascript Model Concept</h1>
+        <hr/>
+        <div id="output"></div>
+    </body>
+    <script>
+    
+    var account = function(){
+        var bal = 0;
+        var deposite=function(money){
+            bal += money;
+            document.getElementById("output").innerHTML +="<h1> After deposite "+money+" ,your main balance is: "+ bal +"</h1>"
+        }
+
+        var withdraw=function(money){
+            bal -= money;
+            document.getElementById("output").innerHTML +="<h1> After withdraw "+money+" ,your main balance is: "+ bal +"</h1>"
+        } 
+
+        return{
+            deposite: deposite,
+            withdraw: withdraw
+        }
+    }
+
+    var a1=account();
+    a1.deposite(100);
+    a1.deposite(100);
+    a1.withdraw(50);
+
+    </script>
+
+</html>

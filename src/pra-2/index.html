@@ -1,1 +1,28 @@
-<h1>Welcome to Second Practical</h1>
+<html>
+    <head>
+        <title> Angular Practice </title>
+    </head>
+    <script src="./js/app.js"></script>
+    <script src="./js/angular.js"></script>
+    <script>
+    // This is IIFE Functions for initilze the angular module 
+    (function(){
+        // This is Module Name
+        var moduleName="myApp";
+        // This is required filed for the creating angular module
+        var required=[]
+        // This is syntax for creating angular module 
+        angular.module(moduleName,required)
+    }())
+    </script>
+    <body>
+        <center>
+            <h1>Using IIFE Functions Create Angular Module </h1>
+        </center>
+        <div id="output"></div>
+    </body>
+    <script>
+        // This is get module details angular.module("myApp")
+    document.getElementById("output").innerHTML += "This is Your First Angular Module : <br/> "+ JSON.stringify(angular.module("myApp"))+"";
+    </script>
+</html>

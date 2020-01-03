@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title> Angular Practice </title>
+    </head>
+    <script src="./js/jquery.js"></script>
+    <body>
+        <center>
+            <h1>Hide The Paragraph using jquery</h1>
+        </center>
+        <p id="para"> Hi this is the Hideing Paragraph</p> <br/>
+        <button id="hide">Hide Paragraph</button>
+    </body>
+    <script>
+        $(document).ready(function(){
+            $("#hide").click(function(){
+                $("#para").hide();
+            })
+        })
+    </script>
+</html>

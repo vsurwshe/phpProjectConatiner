@@ -1,0 +1,38 @@
+<html lang="en" ng-app="myApp"> 
+    <head>
+        <title> Angular Practice </title>
+    </head>
+    <script src="./js/angular.js"></script>
+    <script>
+    (function(){
+        var moduleName="myApp",
+            required=[],
+            myModule=null;
+        myModule = angular.module(moduleName,required)
+        // This is creating syntax for creating controller in angular js
+        myModule.controller("AppCtrl",function(){
+            // This is syntax for write the business logic inside the controller 
+            this.calulate=function(firstNum,secondNum){
+                // Here this keyword holding the current controller object value.
+                this.result= parseInt(firstNum)+parseInt(secondNum);
+            }
+        })
+    }())
+    </script>
+    <!-- ng-controller desides the which controller bind the body/html functions -->
+    <body ng-controller="AppCtrl as app">
+        <center>
+            <h1>Aim: Design the controller in angular and use the ng-model, ng-bind, ng-click and ng-controller angular directives</h1>
+            <hr>
+            <h3>Calulator Function</h3>
+            <!-- ng-model is holding value of html inputs tags which is given by user -->
+            Enter First Number : <input type="text" id="firstNum" ng-model="firstNum" /> <br/><br/>
+            Enter Second Number : <input type="text" id="secondNum" ng-model="secondNum" /> <br/><br/>
+            <!-- ng-click is calling functios which declare in the controller -->
+            <button ng-click="app.calulate(firstNum,secondNum)" >Calulate The Add</button><br/><br/>
+            <!-- ng-bind use for the binding the controller variable value to html -->
+            Result : <h3 id="result" ng-bind="app.result"></h3>
+        </center>
+    </body>
+    
+</html>

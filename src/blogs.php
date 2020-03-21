@@ -27,39 +27,23 @@
         </ol>
     </div>
     <!-- //page details -->
-
     <!-- single -->
-
     <div class="blog-w3l pt-5">
-
         <div class="container pt-xl-5 pt-lg-3">
-
             <h3 class="title-w3 mb-sm-5 mb-4 text-dark text-center font-weight-bold">Our Blogs</h3>
-
             <!-- <p class="title-para text-center mx-auto mb-sm-5 mb-4">Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco
-
-                laboris nisi ut aliquip ex ea commodo consequat, dolor sit amet consectetur elit.</p> -->
-
+                ullamco laboris nisi ut aliquip ex ea commodo consequat, dolor sit amet consectetur elit.</p> -->
             <div class="row blog-content">
-
                 <!-- left side -->
-                
                 <?php include('./data/blogs/LeftSide.php'); ?>
-
                 <!-- //left side -->
-
-
-
                 <!-- right side -->
                 <?php include('./data/blogs/RightSide.php'); ?>
-                
                 <!-- //right side -->
             </div>
         </div>
     </div>
     <!-- //blog -->
-
     <!-- footer -->
     <?php include("./data/footer/Footer.php") ?>
     <!-- //footer -->

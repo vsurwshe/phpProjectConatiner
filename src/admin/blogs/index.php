@@ -49,6 +49,16 @@
     transition: all 0.4s;
   }
 
+  .select {
+    width: 100%;
+    background:#f8f8f8;
+    margin-bottom:25px;
+    color:#727272 !important;
+    font-size:13px;
+    height: 30px;
+  }
+
+
   .form:hover{
     border:1px solid #8BC3A3;
   }
@@ -60,8 +70,8 @@
   }
 
   .textarea{
-    height: 200px;
-    max-height: 200px;
+    height: 50%;
+    max-height: 50%;
     max-width: 100%;
   }
   
@@ -127,9 +137,15 @@ input {
     z-index: 9999;
 }
 </style>
-
+<script>
+function loadData(){
+  let valueTextArea="<h1>starting part of the Blog</h1>";
+  document.getElementById('blogbody').value = valueTextArea;
+}
+</script>
 <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"></head>
 <br />
+<body onload="loadData()">
 <div class="inner contact">
                 <!-- Form Area -->
                 <div class="contact-form">
@@ -138,12 +154,13 @@ input {
                         <!-- Left Inputs -->
                      <center><h1>Write Your Blog</h1></center>
                         <div class="col-xs-12  animated" data-wow-delay=".5s">
-                            <!-- Name -->
-                            <input type="text" name="blogwriter" id="blogwriter" required="required" class="form" placeholder="Blog Writer Name" />
-                            <!-- Email -->
-                            <!-- <input type="email" name="mail" id="mail" required="required" class="form" placeholder="Email" /> -->
-                            <!-- Subject -->
+                            <!-- Title -->
                             <input type="text" name="blogtitle" id="blogtitle" required="required" class="form" placeholder="Blog Title" />
+                             <!-- Name -->
+                            <select name="blogwriter" id="blogwriter" required="required" class="select" >
+                                    <option value="Mr.Yogesh Rakhewar(Software Developer)">Yogesh</option>
+                                    <option value="Mr.Vishvanath Surwshe(Full-Stack Developer)">Vishva</option>
+                            </select>
                              <!-- Message -->
                              <textarea name="blogbody" id="blogbody" class="form textarea"  placeholder="Message"></textarea>
                         </div><!-- End Left Inputs -->
@@ -155,7 +172,6 @@ input {
                         <!-- Clear -->
                         <div class="clear"></div>
                     </form>
-
                     <!-- Your Mail Message -->
                     <div class="mail-message-area">
                         <!-- Message -->
@@ -163,7 +179,7 @@ input {
                             <strong>Thank You !</strong> Your blog has been saved.
                         </div>
                     </div>
-
                 </div><!-- End Contact Form Area -->
             </div><!-- End Inner -->
 
+</body>

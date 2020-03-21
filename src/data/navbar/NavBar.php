@@ -19,6 +19,9 @@
 					<li class="nav-item mx-xl-5 mx-lg-3 mt-lg-0 mt-3">
     			    		<a class="nav-link" href="product.php">Products</a>
 				    </li>
+					<li class="nav-item mx-xl-5 mx-lg-3 mt-lg-0 mt-3">
+    			    		<a class="nav-link" href="blogs.php">Our Blogs</a>
+				    </li>
 				    <li class="nav-item mt-lg-0 mt-3">
     			    		<a class="nav-link" href="contact.php">Contact Us</a>
 				    </li>

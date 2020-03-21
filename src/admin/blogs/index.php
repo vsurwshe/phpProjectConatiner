@@ -139,7 +139,19 @@ input {
 </style>
 <script>
 function loadData(){
-  let valueTextArea="<h1>starting part of the Blog</h1>";
+  let valueTextArea="<p>\n"+"\tBlogs Starting Informations\n"+"</p>\n"
+      +"<p class='my-3'>\n"+"\tBlogs Sub Points heading\n"+"</p>\n"
+    +"<p>\n"+"\tBlgos Sub points Infomrations\n"
+        +"\t<span class='text-danger'>\n"+"\t\tHighlating Text\n"+"\t</span>\n"
+    +"</p>\n"
+    +"<div class='offset-lg-2 mt-5'>\n"
+        +"\t<p>\n"+"\t\tBlogs Ending information\n"+"\t</p>\n"
+    +"</div>\n";
+    // +"<h2 class='mt-3'>\n"
+    //     +"\t<a href='blogs.php' class='single-text text-dark font-weight-light'> Blogs Ending Title</a>\n"
+    // +"</h2>\n"
+    // +"<p class='my-3'>\n"+"\tBlogs Ending Details Informations\n"+"</p>\n"
+    // +"<p></p>\n";
   document.getElementById('blogbody').value = valueTextArea;
 }
 </script>

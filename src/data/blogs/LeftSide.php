@@ -24,7 +24,7 @@
         </p> -->
     </div>
     <h2 class="mt-3">
-        <a href="single.html" class="single-text text-dark font-weight-light"> Blogs Ending Title</a>
+        <a href="blogs.php" class="single-text text-dark font-weight-light"> Blogs Ending Title</a>
     </h2>
     <p class="my-3"> Blogs Ending Details Informations</p>
     <p></p>

@@ -22,9 +22,9 @@
 					<li class="nav-item mx-xl-5 mx-lg-3 mt-lg-0 mt-3">
     			    		<a class="nav-link" href="blogs.php">Our Blogs</a>
 				    </li>
-				    <li class="nav-item mt-lg-0 mt-3">
+				    <!-- <li class="nav-item mt-lg-0 mt-3">
     			    		<a class="nav-link" href="contact.php">Contact Us</a>
-				    </li>
+				    </li> -->
 				    <li class="search my-lg-0 my-4">
     			    		<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="fa fa-search" aria-hidden="true"></i></a>
 				    	<div id="small-dialog" class="mfp-hide">

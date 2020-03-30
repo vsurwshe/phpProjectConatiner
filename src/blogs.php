@@ -8,6 +8,15 @@
     <title>V & Y | Blogs</title>
     <?php include('./data/head/Head.php'); ?>
 </head>
+<script>
+function loadBody(url,blog_title){
+    if(url){
+        let newUrl=url.split("/var/www/html/");
+        $(".txt2").text(blog_title);
+        $(".blogs_body").load(newUrl[1]);
+    }
+}
+</script>
 
 <body>
     <header>
@@ -48,5 +57,4 @@
     <?php include("./data/footer/Footer.php") ?>
     <!-- //footer -->
 </body>
-
 </html>

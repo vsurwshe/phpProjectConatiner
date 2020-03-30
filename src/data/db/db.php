@@ -1,6 +1,6 @@
 <?php
  /* ---- For Local Testing ---- */ 
-  $link = mysqli_connect("192.168.1.110", "root", "root");
+  $link = mysqli_connect("10.42.0.1", "root", "root");
   if (!$link) {
       die("Database connection failed: " . mysqli_connect_error());
   }

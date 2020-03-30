@@ -1,66 +1,49 @@
 <div class="col-lg-4 event-right mt-lg-0 mt-sm-5 mt-4">
-
                     <div class="event-right1">
-
                         <div class="category-story tech-btm">
-
-                            <h3 class="blog-title text-dark mb-3">More Stories</h3>
-
+                            <h3 class="blog-title text-dark mb-3">More Blogs</h3>
                             <ul class="list-unstyled">
+                            <?php
+                                $blogsResult = mysqli_query($link, "SELECT * FROM `blogs`");
+                                while ($row = mysqli_fetch_array($blogsResult)) {
+                            ?>
+                            <li class="border-bottom mb-3 pb-3">
+                                <i class="fa fa-caret-right mr-2"></i>
+                                <a href="#" class="text-danger txt1" onclick="loadBody('<?php echo $row['blog_path']?>','<?php echo $row['blog_name']?>')"><?php echo $row['blog_name']  ?></a>
+                            </li>
+                            <?php }?>
 
-                                <li class="border-bottom mb-3 pb-3">
 
+                                <!-- <li class="border-bottom mb-3 pb-3">
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
                                 </li>
-
                                 <li class="border-bottom mb-3 pb-3">
-
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
                                 </li>
-
                                 <li class="border-bottom mb-3 pb-3">
-
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
                                 </li>
-
                                 <li class="border-bottom mb-3 pb-3">
-
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
                                 </li>
-
                                 <li class="border-bottom mb-3 pb-3">
-
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
                                 </li>
-
                                 <li>
-
                                     <i class="fa fa-caret-right mr-2"></i>
-
                                     <a href="#" class="text-danger">sed do eiusmod tempor incididunt ut labore et dolore
                                         magna aliqua</a>
-
-                                </li>
+                                </li> -->
 
 
 

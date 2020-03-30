@@ -7,27 +7,31 @@
             </a>
         </div>
     </div>
+    
     <h1>
-        <a href="blogs.php" class="single-text text-dark font-weight-light"> Blogs Heading </a>
+        <a href="blogs.php" class="single-text text-dark font-weight-light txt2" id="blogs_heading"> Blogs Heading </a>
     </h1>
+    <span id="blogs_body" class="blogs_body"></span>
+    
+<!--     
     <p>Blogs Starting Informations </p>
     <p class="my-3">Blogs Sub Points</p>
     <p>Blgos Sub points Infomrations
         <span class="text-danger"> Highlating Text</span>
-    </p>
-    <div class="offset-lg-2 mt-5">
-        <p> </p>
+    </p> -->
+    <!-- <div class="offset-lg-2 mt-5">
+        <p> </p> -->
         <!-- <p class="my-3">Ullamco labor nisi ut aliquip exea commodo consequat duis aute irudre dolor
             in elit sed uta
             labore dolore reprehender</p>
         <p>Jabore et dolore magna aliqua uta enim ad minim ven iam quis nostrud exercitation ullamco labor nisi ut aliquip exea <span class="text-danger">commodo consequat duis aute irudre dolor in elit sed uta labore dolore reprehender</span>
         </p> -->
-    </div>
-    <h2 class="mt-3">
+    <!-- </div> -->
+    <!-- <h2 class="mt-3">
         <a href="blogs.php" class="single-text text-dark font-weight-light"> Blogs Ending Title</a>
     </h2>
     <p class="my-3"> Blogs Ending Details Informations</p>
-    <p></p>
+    <p></p> -->
 </div>
 
 <div class="comment-top mt-4">

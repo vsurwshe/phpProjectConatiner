@@ -2,7 +2,7 @@
 <?php 
  include("./data/db/db.php");
 ?>
-<html lang="zxx">
+<html lang="english">
 
 <head>
     <title>V & Y | Blogs</title>
@@ -66,7 +66,6 @@ function loadBody(url,blog_title,blog_writer){
             $("#blogs_writer").text("- "+blogArray[0].blog_writer);
         }
     });
-    
     </script>
     <!-- //footer -->
 </body>

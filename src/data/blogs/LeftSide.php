@@ -7,10 +7,9 @@
             </a>
         </div>
     </div>
-    
-    <h1>
-        <a href="blogs.php" class="single-text text-dark font-weight-light txt2" id="blogs_heading"> Sorry No Blogs Available....! </a>
-    </h1>
+    <hr/>
+    <h3> <a href="blogs.php" class="single-text text-dark font-weight-light txt2" id="blogs_heading"> Sorry No Blogs Available....! </a></h3>
+    <hr/>
     <span id="blogs_body" class="blogs_body"></span>
     <span id="blogs_writer" class="float-right"></span>
 <!--     
@@ -35,6 +34,8 @@
 </div>
 
 <div class="comment-top mt-4">
+<h4>Comments</h4>
+<br/>
     <?php include('./data/blogs/Comment.php');?>
 </div>
     <!-- <div class="media">
@@ -47,6 +48,7 @@
 </div>
 <div class="comment-top mt-5">
     <h4>Leave a Comment</h4>
+    <hr />
     <div class="comment-bottom">
     <?php include('./data/blogs/LeaveCommentForm.php');?>
     </div>

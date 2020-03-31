@@ -9,11 +9,12 @@
     <?php include('./data/head/Head.php'); ?>
 </head>
 <script>
-function loadBody(url,blog_title){
+function loadBody(url,blog_title,blog_writer){
     if(url){
         let newUrl=url.split("/var/www/html/");
         $(".txt2").text(blog_title);
         $(".blogs_body").load(newUrl[1]);
+        $("#blogs_writer").text("- "+blog_writer);
     }
 }
 </script>
@@ -58,10 +59,11 @@ function loadBody(url,blog_title){
     <script>
     $(document).ready(function(){
         var blogArray=[<?php echo json_encode($josnarray,true) ?>];
-        if(blogArray && blogArray.length>0){
+        if(blogArray.length>0 && blogArray[0] !== null ){
             let newUrl=blogArray[0].blog_path.split("/var/www/html/");
             $(".txt2").text(blogArray[0].blog_name);
             $(".blogs_body").load(newUrl[1]);
+            $("#blogs_writer").text("- "+blogArray[0].blog_writer);
         }
     });
     

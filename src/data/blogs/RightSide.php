@@ -11,7 +11,7 @@
                             ?>
                             <li class="border-bottom mb-3 pb-3">
                                 <i class="fa fa-caret-right mr-2"></i>
-                                <a href="#" class="text-danger txt1" onclick="loadBody('<?php echo $row['blog_path']?>','<?php echo $row['blog_name']?>')"><?php echo $row['blog_name']  ?></a>
+                                <a href="#" class="text-danger txt1" onclick="loadBody('<?php echo $row['blog_path']?>','<?php echo $row['blog_name']?>','<?php echo $row['blog_writer'] ?>')"><?php echo $row['blog_name']  ?></a>
                             </li>
                             <?php }?>
                             </ul>

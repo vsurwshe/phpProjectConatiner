@@ -9,10 +9,10 @@
     </div>
     
     <h1>
-        <a href="blogs.php" class="single-text text-dark font-weight-light txt2" id="blogs_heading"> Blogs Heading </a>
+        <a href="blogs.php" class="single-text text-dark font-weight-light txt2" id="blogs_heading"> Sorry No Blogs Available....! </a>
     </h1>
     <span id="blogs_body" class="blogs_body"></span>
-    
+    <span id="blogs_writer" class="float-right"></span>
 <!--     
     <p>Blogs Starting Informations </p>
     <p class="my-3">Blogs Sub Points</p>

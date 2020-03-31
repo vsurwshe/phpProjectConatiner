@@ -55,6 +55,17 @@ function loadBody(url,blog_title){
     <!-- //blog -->
     <!-- footer -->
     <?php include("./data/footer/Footer.php") ?>
+    <script>
+    $(document).ready(function(){
+        var blogArray=[<?php echo json_encode($josnarray,true) ?>];
+        if(blogArray && blogArray.length>0){
+            let newUrl=blogArray[0].blog_path.split("/var/www/html/");
+            $(".txt2").text(blogArray[0].blog_name);
+            $(".blogs_body").load(newUrl[1]);
+        }
+    });
+    
+    </script>
     <!-- //footer -->
 </body>
 </html>

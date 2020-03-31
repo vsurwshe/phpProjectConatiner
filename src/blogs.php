@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <?php 
  include("./data/db/db.php");
 ?>
@@ -9,8 +9,9 @@
     <?php include('./data/head/Head.php'); ?>
 </head>
 <script>
-function loadBody(url,blog_title,blog_writer){
+function loadBody(url,blog_title,blog_writer,blog_id){
     if(url){
+        document.cookie="blog_id = "+blog_id;
         let newUrl=url.split("/var/www/html/");
         $(".txt2").text(blog_title);
         $(".blogs_body").load(newUrl[1]);

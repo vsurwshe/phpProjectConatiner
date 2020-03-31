@@ -1,7 +1,7 @@
     <div class="media">
         <div class="media-body pt-xl-2 pl-3">
             <?php 
-                $query="SELECT * FROM `comments` WHERE `blog_id`=1";
+                $query="SELECT * FROM `comments` WHERE `blog_id`=".$_COOKIE["blog_id"];
                 $commentQueryResult= mysqli_query($link, $query);
                 while ($row = mysqli_fetch_array($commentQueryResult)) {
             ?>

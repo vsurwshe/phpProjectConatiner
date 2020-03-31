@@ -7,11 +7,13 @@
                                 $firstBlogsResult = mysqli_query($link, "SELECT * FROM `blogs`");
                                 $blogsResult = mysqli_query($link, "SELECT * FROM `blogs`");
                                 $josnarray=mysqli_fetch_assoc($firstBlogsResult);
+                                $blogId=json_decode(json_encode($josnarray,true))->blog_id;
+                                setcookie("blog_id",$blogId,time()+(2*24*60*60));
                                 while ($row = mysqli_fetch_array($blogsResult)) {
                             ?>
                             <li class="border-bottom mb-3 pb-3">
                                 <i class="fa fa-caret-right mr-2"></i>
-                                <a href="#" class="text-danger txt1" onclick="loadBody('<?php echo $row['blog_path']?>','<?php echo $row['blog_name']?>','<?php echo $row['blog_writer'] ?>')"><?php echo $row['blog_name']  ?></a>
+                                <a href="#" class="text-danger txt1" onclick="loadBody('<?php echo $row['blog_path']?>','<?php echo $row['blog_name']?>','<?php echo $row['blog_writer'] ?>','<?php echo $row['blog_id'] ?>')"><?php echo $row['blog_name']  ?></a>
                             </li>
                             <?php }?>
                             </ul>

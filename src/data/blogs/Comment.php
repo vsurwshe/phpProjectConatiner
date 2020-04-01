@@ -3,7 +3,6 @@
                 $query="SELECT * FROM `comments` WHERE `blog_id`=".$_POST['blog_id'];
                 $commentQueryResult= mysqli_query($link, $query) or die("query not executed");
                 while ($row = mysqli_fetch_array($commentQueryResult)) {
-                echo $row['comment_name'];
                 echo "<img src='images/user.png' alt='' class='img-fluid rounded' /><h5 class='mb-2'>".$row['comment_name']."</h5><p>".$row['comment_body']."</p>";
              }
             ?>

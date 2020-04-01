@@ -11,7 +11,7 @@
 <script>
 function loadBody(url,blog_title,blog_writer,blog_id){
     if(url){
-        // document.cookie="blog_id = "+blog_id;
+        document.cookie="blog_id = "+blog_id;
         let newUrl=url.split("/var/www/html/");
         $(".txt2").text(blog_title);
         $(".blogs_body").load(newUrl[1]);
@@ -74,7 +74,7 @@ function loadBody(url,blog_title,blog_writer,blog_id){
         var blogArray=[<?php echo json_encode($josnarray,true) ?>];
         if(blogArray.length>0 && blogArray[0] !== null ){
             localStorage.setItem('blog_id',blogArray[0].blog_id);
-            // document.cookie="blog_id = "+blogArray[0].blog_id;
+            document.cookie="blog_id = "+blogArray[0].blog_id;
             let newUrl=blogArray[0].blog_path.split("/var/www/html/");
             $(".txt2").text(blogArray[0].blog_name);
             $(".blogs_body").load(newUrl[1]);
@@ -91,6 +91,25 @@ function loadBody(url,blog_title,blog_writer,blog_id){
              }
             });
         }
+        $("#leaveForm").submit(function(event){
+            event.preventDefault();
+            console.log("Hi ",$("#Name").val(),$("#Email").val(),$("#Message").val())
+            $.ajax({
+                type:'POST',
+                url:'./data/blogs/SubmitCommentForm.php',
+                data:{
+                    Name:$("#Name").val(),
+                    Email:$("#Email").val(),
+                    Message:$("#Message").val(),
+                    BlogId:localStorage.getItem('blog_id')
+                },
+                success:function(data){
+                    $("#commentResult").text(data);
+                    location.replace('blogs.php');
+                }
+
+            })
+        });
     });
     </script>
     <!-- //footer -->

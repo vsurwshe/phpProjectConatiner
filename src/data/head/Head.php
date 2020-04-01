@@ -11,6 +11,7 @@
 			window.scrollTo(0, 1);
 		}
 	</script>
+	<script src="js/jquery-2.2.3.min.js"></script>
     <!------ FAICON ---->
 	<link rel="apple-touch-icon" sizes="57x57" href="icon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="icon/apple-icon-60x60.png">

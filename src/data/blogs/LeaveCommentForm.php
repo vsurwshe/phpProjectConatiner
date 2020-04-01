@@ -8,12 +8,9 @@ if(isset($_POST['Submit']) && isset($_POST['Name']) && isset($_POST['Email']) &&
     $result = mysqli_query($link, $query);
     if($result){
 		echo "<script>alert('Your comment is submited successFully')</script>";
-		// header("Location: blogs.php");
 	}else{
 		echo "<script>alert('Your comment is not submited successFully, Please try again !!')</script>";
-	 }
-    
-
+	}
 }
 
 ?>

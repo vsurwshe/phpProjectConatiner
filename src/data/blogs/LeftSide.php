@@ -33,10 +33,15 @@
     <p></p> -->
 </div>
 
-<div class="comment-top mt-4">
+<div class="comment-top mt-4" >
 <h4>Comments</h4>
 <br/>
-    <?php include('./data/blogs/Comment.php');?>
+<div class="media">
+        <div class="media-body pt-xl-2 pl-3" id="commentBlog">
+    <?php
+    //  include('./data/blogs/Comment.php');
+     ?>
+    </div>
 </div>
     <!-- <div class="media">
         <img src="images/te3.jpg" alt="" class="img-fluid rounded" />

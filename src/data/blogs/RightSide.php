@@ -8,7 +8,7 @@
                                 $blogsResult = mysqli_query($link, "SELECT * FROM `blogs`");
                                 $josnarray=mysqli_fetch_assoc($firstBlogsResult);
                                 $blogId=json_decode(json_encode($josnarray,true))->blog_id;
-                                setcookie("blog_id",$blogId,time()+(2*24*60*60));
+                                // setcookie("blog_id",$blogId);
                                 while ($row = mysqli_fetch_array($blogsResult)) {
                             ?>
                             <li class="border-bottom mb-3 pb-3">

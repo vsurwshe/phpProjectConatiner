@@ -8,7 +8,7 @@
   if (!$db) {
       die("Database selection failed: " . mysqli_connect_error());
   }
-  echo "Database Connections Successfully......";
+  echo "Database Connections Successfully......<br/>";
   mysqli_set_charset($link, 'UTF8');
 ?>  
 

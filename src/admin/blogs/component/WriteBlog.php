@@ -30,13 +30,14 @@
           <h2>Admin Write Your Blog</h2>
         </center>
         <div class="col-xs-12  animated" data-wow-delay=".5s">
+           <input type="hidden" id="blogId" name="blogId" value="<?php echo $blog_id; ?>" />
           <!-- Title -->
-          <input type="text" name="blogtitle" id="blogtitle" required="required" class="form"value="<?php echo $blogName;?>"placeholder="Enter blog title" />
+          <input type="text" name="blogtitle" id="blogtitle" required="required" class="form" value="<?php echo $blogName;?>" placeholder="Enter blog title"/>
           <!-- Name -->
           <select 
           name="blogwriter" 
           id="blogwriter" 
-          value="Mr.Vishvanath Surwshe(Full-Stack Developer)"
+          value="Vishva"
           required="required" 
           placeholder="Choose the blog writer"
           class="select">

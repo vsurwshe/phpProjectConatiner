@@ -17,13 +17,17 @@ if(isset($_POST["submit"]) && isset($_POST["blogtitle"]) && isset($_POST["blogwr
     // fwrite($f, $body);
     if($file)
     {
-        $insertQuery="INSERT INTO `blogs`(`blog_name`, `blog_writer`,`categorise`, `blog_path`) VALUES ('$title','$witerName','$categories','$fileName')";
+        if($_POST["blogId"] == ""){
+            $insertQuery="INSERT INTO `blogs`(`blog_name`, `blog_writer`,`categorise`, `blog_path`) VALUES ('$title','$witerName','$categories','$fileName')";
         $result = mysqli_query($link,$insertQuery);  
         if($result >0){
-            echo "<script>alert('Your Data is Inserted SuccessFully'); location.replace('../index.php');</script>";
+            echo "<script>alert('Your blog is created successFully'); location.replace('../index.php');</script>";
         }else{
-            echo "<script>alert('Your Data is Not Inserted SuccessFully');location.replace('../index.php');</script>";
-         }   
+            echo "<script>alert('Your blog is not created');location.replace('../index.php');</script>";
+         }
+        }else{
+            echo "<script>alert('Your blog is updated successFully'); location.replace('../index.php');</script>";
+        }
     }
     fclose($file);
 }else{

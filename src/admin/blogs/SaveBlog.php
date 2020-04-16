@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include_once("../../../data/db/db.php");
+include_once("../../data/db/db.php");
 if(isset($_POST["submit"]) && isset($_POST["blogtitle"]) && isset($_POST["blogwriter"]) && isset($_POST["blogbody"])){
     $title=$_POST["blogtitle"];
     $witerName=$_POST["blogwriter"];

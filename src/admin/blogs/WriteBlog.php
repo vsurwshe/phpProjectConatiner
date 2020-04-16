@@ -1,7 +1,7 @@
 <head>
-<script src="../../../js/jquery.min.js"></script>  
-  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../../css/admin-blog-form.css">
+<script src="../../js/jquery.min.js"></script>  
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/admin-blog-form.css">
 </head>
 <body>
 <div class="inner contact">
@@ -10,7 +10,7 @@
       <?php 
       if(isset($_GET["data"])){
         $blog_id=$_GET["data"];
-        include("../../../data/db/db.php");
+        include("../../data/db/db.php");
         $blogName="";
         $blogWriter="";
         $blogPath="";
@@ -55,7 +55,7 @@
           placeholder="Enter blog categoreies" />
           <!--Blog Body Conetnt Write -->
           <textarea name="blogbody" id="blogbody" class="form textarea" placeholder="Enter blog content">
-          <?php echo $blogPath != "" ?  file_get_contents($blogPath) : file_get_contents("../../../developerblogs/Structure.html");?>
+          <?php echo $blogPath != "" ?  file_get_contents($blogPath) : file_get_contents("../../developerblogs/Structure.html");?>
           </textarea>
         </div><!-- End Left Inputs -->
         <!-- Bottom Submit -->
@@ -71,7 +71,7 @@
       <script>
         $(document).ready(function(){ 
             $("#cancle").click(function(){
-              location.href="../index.php";
+              location.href="./index.php";
             })
         });
   </script>

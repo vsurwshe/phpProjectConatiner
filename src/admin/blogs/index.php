@@ -81,13 +81,13 @@ include_once("../../data/db/db.php");
      });  
      function editFunctions(RowData){
           console.log("Edit Row Data ",RowData);
-          location.href="./component/WriteBlog.php?data="+RowData[0];
+          location.href="./WriteBlog.php?data="+RowData[0];
      }
      function deleteFunctions(RowData){
           console.log("Delete Row Data ",RowData);
      }
      $("#createNewBlog").click(function(){
-          location.href="./component/WriteBlog.php";
+          location.href="./WriteBlog.php";
      })
  });  
  </script>  

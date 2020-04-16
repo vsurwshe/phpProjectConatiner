@@ -31,7 +31,6 @@ include_once("../../data/db/db.php");
                                </tr>  
                           </thead>  
                           <?php  
-                          
                           $selectBlogsQuery="SELECT * FROM `blogs`";
                           $blogsQueryResult= mysqli_query($link, $selectBlogsQuery) or die("query not executed");
                           while($row = mysqli_fetch_array($blogsQueryResult))  
@@ -87,10 +86,8 @@ include_once("../../data/db/db.php");
      function deleteFunctions(RowData){
           console.log("Delete Row Data ",RowData);
      }
-
      $("#createNewBlog").click(function(){
           location.href="./component/WriteBlog.php";
      })
-
  });  
  </script>  

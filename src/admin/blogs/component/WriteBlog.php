@@ -1,4 +1,5 @@
 <head>
+<script src="../../../js/jquery.min.js"></script>  
   <link rel="stylesheet" href="../../../css/bootstrap.min.css">
   <link rel="stylesheet" href="../../../css/admin-blog-form.css">
 </head>
@@ -23,7 +24,6 @@
         }
       }
       ?>
-      
       <form id="blogs" method="post" action="SaveBlog.php">
         <!-- Left Inputs -->
         <center>
@@ -31,20 +31,14 @@
         </center>
         <div class="col-xs-12  animated" data-wow-delay=".5s">
           <!-- Title -->
-          <input 
-          type="text" 
-          name="blogtitle" 
-          id="blogtitle" 
-          required="required" 
-          class="form"
-          value="<?php echo $blogName;?>"
-          placeholder="Blog Title" />
+          <input type="text" name="blogtitle" id="blogtitle" required="required" class="form"value="<?php echo $blogName;?>"placeholder="Enter blog title" />
           <!-- Name -->
           <select 
           name="blogwriter" 
           id="blogwriter" 
           value="Mr.Vishvanath Surwshe(Full-Stack Developer)"
           required="required" 
+          placeholder="Choose the blog writer"
           class="select">
             <option value="Mr.Yogesh Rakhewar(Software Developer)">Yogesh</option>
             <option value="Mr.Vishvanath Surwshe(Full-Stack Developer)">Vishva</option>
@@ -57,24 +51,27 @@
           required="required" 
           value="<?php echo $blogCatgoreies;?>"
           class="form"
-          placeholder="Blog Categoreies" />
-          <!-- Message -->
-          <textarea 
-          name="blogbody" 
-          id="blogbody" 
-          class="form textarea" 
-          placeholder="Message">
+          placeholder="Enter blog categoreies" />
+          <!--Blog Body Conetnt Write -->
+          <textarea name="blogbody" id="blogbody" class="form textarea" placeholder="Enter blog content">
           <?php echo $blogPath != "" ?  file_get_contents($blogPath) : file_get_contents("../../../developerblogs/Structure.html");?>
           </textarea>
         </div><!-- End Left Inputs -->
         <!-- Bottom Submit -->
         <div class="relative fullwidth col-xs-12">
-          <!-- Send Button -->
-          <button type="submit" id="submit" name="submit" class="form-btn semibold">Save the Blog</button>
+        <button type="submit" id="submit" name="submit" class="form-btn semibold">Save Blog</button>  &nbsp;
+        <button type="button" id="cancle" name="cancle" onClick="cancle()" class="form-btn">Cancle</button>  
         </div><!-- End Bottom Submit -->
         <!-- Clear -->
         <div class="clear"></div>
       </form>
+      <script>
+        $(document).ready(function(){ 
+            $("#cancle").click(function(){
+              location.href="../index.php";
+            })
+        });
+  </script>
       <div class="mail-message-area">
         <div class="alert gray-bg mail-message not-visible-message">
           <strong>Thank You !</strong> Your blog has been saved.

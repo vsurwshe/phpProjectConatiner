@@ -1,0 +1,85 @@
+<head>
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../css/admin-blog-form.css">
+</head>
+<body>
+<div class="inner contact">
+    <div class="contact-form">
+      <!-- Form -->
+      <?php 
+      if(isset($_GET["data"])){
+        $blog_id=$_GET["data"];
+        include("../../../data/db/db.php");
+        $blogName="";
+        $blogWriter="";
+        $blogPath="";
+        $blogCatgoreies="";
+        $firstBlogsResult = mysqli_query($link, "SELECT * FROM `blogs` WHERE `blog_id`=$blog_id") or die("Query not executed");
+        while ($row = mysqli_fetch_array($firstBlogsResult)) {
+          $blogName=$row["blog_name"];
+          $blogWriter=$row["blog_writer"];
+          $blogPath=$row["blog_path"];
+          $blogCatgoreies=$row["categorise"];
+        }
+      }
+      ?>
+      
+      <form id="blogs" method="post" action="SaveBlog.php">
+        <!-- Left Inputs -->
+        <center>
+          <h2>Admin Write Your Blog</h2>
+        </center>
+        <div class="col-xs-12  animated" data-wow-delay=".5s">
+          <!-- Title -->
+          <input 
+          type="text" 
+          name="blogtitle" 
+          id="blogtitle" 
+          required="required" 
+          class="form"
+          value="<?php echo $blogName;?>"
+          placeholder="Blog Title" />
+          <!-- Name -->
+          <select 
+          name="blogwriter" 
+          id="blogwriter" 
+          value="Mr.Vishvanath Surwshe(Full-Stack Developer)"
+          required="required" 
+          class="select">
+            <option value="Mr.Yogesh Rakhewar(Software Developer)">Yogesh</option>
+            <option value="Mr.Vishvanath Surwshe(Full-Stack Developer)">Vishva</option>
+          </select>
+          <!-- Categoreies -->
+          <input 
+          type="text" 
+          name="categoreies" 
+          id="categoreies" 
+          required="required" 
+          value="<?php echo $blogCatgoreies;?>"
+          class="form"
+          placeholder="Blog Categoreies" />
+          <!-- Message -->
+          <textarea 
+          name="blogbody" 
+          id="blogbody" 
+          class="form textarea" 
+          placeholder="Message">
+          <?php echo $blogPath != "" ?  file_get_contents($blogPath) : file_get_contents("../../../developerblogs/Structure.html");?>
+          </textarea>
+        </div><!-- End Left Inputs -->
+        <!-- Bottom Submit -->
+        <div class="relative fullwidth col-xs-12">
+          <!-- Send Button -->
+          <button type="submit" id="submit" name="submit" class="form-btn semibold">Save the Blog</button>
+        </div><!-- End Bottom Submit -->
+        <!-- Clear -->
+        <div class="clear"></div>
+      </form>
+      <div class="mail-message-area">
+        <div class="alert gray-bg mail-message not-visible-message">
+          <strong>Thank You !</strong> Your blog has been saved.
+        </div>
+      </div>
+    </div><!-- End Contact Form Area -->
+  </div><!-- End Inner -->
+</body>

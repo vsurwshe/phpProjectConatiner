@@ -1,3 +1,6 @@
+<?php 
+include_once("../../data/db/db.php");
+?>
 <!DOCTYPE html>  
  <html>  
       <head>  
@@ -9,11 +12,12 @@
            <link rel="stylesheet" href="../../css/dataTables.bootstrap.min.css" />  
       </head>  
       <body>  
-           <br /><br />  
            <div class="container">  
                 <h3 align="center">Admin Blogs Created</h3>  
-                <br />  
+                <br />
+                <button id="createNewBlog" style="float: right;background-color: green;color: white;">Add New Blog </button> <br/><br/>  
                 <div class="table-responsive">  
+                     
                      <table id="blogs_data" class="table table-striped table-bordered">  
                           <thead>  
                                <tr>  
@@ -27,7 +31,7 @@
                                </tr>  
                           </thead>  
                           <?php  
-                          include_once("../../data/db/db.php");
+                          
                           $selectBlogsQuery="SELECT * FROM `blogs`";
                           $blogsQueryResult= mysqli_query($link, $selectBlogsQuery) or die("query not executed");
                           while($row = mysqli_fetch_array($blogsQueryResult))  
@@ -78,9 +82,15 @@
      });  
      function editFunctions(RowData){
           console.log("Edit Row Data ",RowData);
+          location.href="./component/WriteBlog.php?data="+RowData[0];
      }
      function deleteFunctions(RowData){
           console.log("Delete Row Data ",RowData);
      }
+
+     $("#createNewBlog").click(function(){
+          location.href="./component/WriteBlog.php";
+     })
+
  });  
  </script>  

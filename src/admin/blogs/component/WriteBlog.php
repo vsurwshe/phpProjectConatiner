@@ -59,7 +59,9 @@
         </div><!-- End Left Inputs -->
         <!-- Bottom Submit -->
         <div class="relative fullwidth col-xs-12">
-        <button type="submit" id="submit" name="submit" class="form-btn semibold">Save Blog</button>  &nbsp;
+        <button type="submit" id="submit" name="submit" class="form-btn semibold">
+          <?php echo $blogPath != "" ? "Update Blog" :"Save Blog"; ?>
+        </button>  &nbsp;
         <button type="button" id="cancle" name="cancle" onClick="cancle()" class="form-btn">Cancle</button>  
         </div><!-- End Bottom Submit -->
         <!-- Clear -->

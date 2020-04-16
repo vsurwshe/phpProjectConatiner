@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include_once("../../data/db/db.php");
+include_once("../../../data/db/db.php");
 if(isset($_POST["submit"]) && isset($_POST["blogtitle"]) && isset($_POST["blogwriter"]) && isset($_POST["blogbody"])){
     $title=$_POST["blogtitle"];
     $witerName=$_POST["blogwriter"];
@@ -20,13 +20,13 @@ if(isset($_POST["submit"]) && isset($_POST["blogtitle"]) && isset($_POST["blogwr
         $insertQuery="INSERT INTO `blogs`(`blog_name`, `blog_writer`,`categorise`, `blog_path`) VALUES ('$title','$witerName','$categories','$fileName')";
         $result = mysqli_query($link,$insertQuery);  
         if($result >0){
-            echo "<script>alert('Your Data is Inserted SuccessFully'); location.replace('index.html');</script>";
+            echo "<script>alert('Your Data is Inserted SuccessFully'); location.replace('../index.php');</script>";
         }else{
-            echo "<script>alert('Your Data is Not Inserted SuccessFully');location.replace('index.html');</script>";
+            echo "<script>alert('Your Data is Not Inserted SuccessFully');location.replace('../index.php');</script>";
          }   
     }
     fclose($file);
 }else{
-    echo "<script>alert('Sorry your blog file not save'); location.replace('index.html');</script>";
+    echo "<script>alert('Sorry your blog file not save'); location.replace('../index.php');</script>";
 }
 ?>

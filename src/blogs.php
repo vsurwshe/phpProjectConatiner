@@ -12,7 +12,7 @@
 function loadBody(url,blog_title,blog_writer,blog_id){
     if(url){
         document.cookie="blog_id = "+blog_id;
-        let newUrl=url.split("/var/www/html/");
+        let newUrl=url.split("../../");
         $(".txt2").text(blog_title);
         $(".blogs_body").load(newUrl[1]);
         $("#blogs_writer").text("- "+blog_writer);
@@ -75,7 +75,7 @@ function loadBody(url,blog_title,blog_writer,blog_id){
         if(blogArray.length>0 && blogArray[0] !== null ){
             localStorage.setItem('blog_id',blogArray[0].blog_id);
             document.cookie="blog_id = "+blogArray[0].blog_id;
-            let newUrl=blogArray[0].blog_path.split("/var/www/html/");
+            let newUrl=blogArray[0].blog_path.split("../../");
             $(".txt2").text(blogArray[0].blog_name);
             $(".blogs_body").load(newUrl[1]);
             $("#blogs_writer").text("- "+blogArray[0].blog_writer);

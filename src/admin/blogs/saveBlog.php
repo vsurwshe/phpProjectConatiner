@@ -8,8 +8,9 @@ if(isset($_POST["submit"]) && isset($_POST["blogtitle"]) && isset($_POST["blogwr
     $body=htmlspecialchars($_POST["blogbody"]) ;
     echo nl2br("\n$title\n------\n$witerName\n-----\n$body");
      //Save File
-     $dir_path = "/developerblogs/";
-     $fileNamePath = $_SERVER['DOCUMENT_ROOT'].$dir_path.$_POST["blogtitle"].".html";
+     $dir_path = "../../developerblogs/";
+    //  $fileNamePath = $_SERVER['DOCUMENT_ROOT'].$dir_path.$_POST["blogtitle"].".html";
+     $fileNamePath = $dir_path.$_POST["blogtitle"].".html";
      $fileName=str_replace(" ","",$fileNamePath);
      echo $fileName;
      $file = fopen($fileName,"a+") or die(" Sorry File not created");

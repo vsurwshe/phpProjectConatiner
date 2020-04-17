@@ -24,7 +24,7 @@
         }
       }
       ?>
-      <form id="blogs" method="post" action="SaveBlog.php">
+      <form id="blogs" method="post" action="saveBlog.php">
         <!-- Left Inputs -->
         <center>
           <h2>Admin Write Your Blog</h2>

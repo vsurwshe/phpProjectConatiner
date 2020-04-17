@@ -79,15 +79,37 @@ include_once("../../data/db/db.php");
           }
      ]
      });  
+     $("#createNewBlog").click(function(){
+          location.href="./writeBlog.php";
+     })
      function editFunctions(RowData){
-          console.log("Edit Row Data ",RowData);
-          location.href="./WriteBlog.php?data="+RowData[0];
+          location.href="./writeBlog.php?data="+RowData[0];
      }
      function deleteFunctions(RowData){
           console.log("Delete Row Data ",RowData);
+          var userResult=confirm("Are sure want to delete this Blog ?")
+          if(userResult=== true){
+               console.log("Ok Delete")
+               $.ajax({
+                    type:"POST",
+                    url:"./delete.php",
+                    data:{
+                         blogId:RowData[0],
+                         blogFile:RowData[4]
+                    },
+                    success:function(data){
+                      console.log("Success Data ", data);
+                      if(data){
+                           location.reload();
+                      }
+                    },
+                    error:function(error){
+                         console.log("You Got Error ",error);
+                    }
+               });
+          }
+          
      }
-     $("#createNewBlog").click(function(){
-          location.href="./WriteBlog.php";
-     })
+     
  });  
  </script>  

@@ -37,12 +37,11 @@
           <select 
           name="blogwriter" 
           id="blogwriter" 
-          value="Vishva"
           required="required" 
           placeholder="Choose the blog writer"
           class="select">
-            <option value="Mr.Yogesh Rakhewar(Software Developer)">Yogesh</option>
-            <option value="Mr.Vishvanath Surwshe(Full-Stack Developer)">Vishva</option>
+            <option  <?php if($blogWriter=="Mr.Yogesh Rakhewar(Software Developer)"){ echo 'selected="selected"';} ?> value="Mr.Yogesh Rakhewar(Software Developer)">Yogesh</option>
+            <option  <?php if($blogWriter=="Mr.Vishvanath Surwshe(Full-Stack Developer)"){ echo 'selected="selected"';} ?> value="Mr.Vishvanath Surwshe(Full-Stack Developer)">Vishva</option>
           </select>
           <!-- Categoreies -->
           <input 

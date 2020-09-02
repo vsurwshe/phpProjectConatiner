@@ -1,20 +1,19 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-server-80
+  mysqlVishva:
+    image: mysql
     command: --default-authentication-plugin=mysql_native_password
-#      working_dir: /application
     volumes:
-      - .:/application
+      - ./mysql-data:/var/lib/mysql
+    ports: 
+      - "3307:3306"
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=my_db
-      - MYSQL_USER=vishva
-      - MYSQL_PASSWORD=root
-    ports:
-      - "8082:3306"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vany
+      MYSQL_USER: vishva
+      MYSQL_PASSWORD: admin@123
+      MYSQL_ROOT_HOST: '%'
     networks:
       - web
   website:
@@ -24,7 +23,22 @@ services:
     ports:
       - 8001:80
     depends_on:
-      - mysql
+      - mysqlVishva
+    networks:
+      - web
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - mysqlVishva
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8081:80'
+    links: 
+      - mysqlVishva:mysqlVishva
+    environment:
+      PMA_HOST: vishva
+      PMA_PORT: 3306
     networks:
       - web
 networks:

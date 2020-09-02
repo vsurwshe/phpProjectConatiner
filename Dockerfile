@@ -10,6 +10,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 # Copy the project floder into server
-COPY ./src/ /var/www/html/
+# COPY ./src/ /var/www/html/
 RUN chown -R www-data:www-data  /var/www/html
+RUN chmod -R 777 /var/www/html
+WORKDIR /var/www/html/
 EXPOSE 80

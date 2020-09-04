@@ -17,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'student', 'middleware' => 'cors'], function () {
+    Route::get('getAll', 'StudentController@getAllStudents');
+    Route::get('getById/{id}', 'StudentController@getStudent');
+    Route::post('create', 'StudentController@createStudent');
+    Route::put('update/{id}', 'StudentController@updateStudent');
+    Route::delete('delete/{id}','StudentController@deleteStudent');
+});
+
+

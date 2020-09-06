@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix'=>'api/users', 'middleware' => 'cors'],function($router){
+$router->group(['prefix'=>'api/users'],function($router){
     $router->get('getAllUsers','UsersController@getAllUsers');
     $router->get('getUsers/{id}','UsersController@getUsersById');
     $router->post('saveUsers','UsersController@create');

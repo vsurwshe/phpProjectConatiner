@@ -1,13 +1,13 @@
 version: '3'
 services:
-  larvel_data_base:
+  slim_data_base:
     image: mysql
-    container_name: rest_larvel_api_db
+    container_name: rest_slim_api_db
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./mysql-data:/var/lib/mysql
     ports: 
-      - "3308:3306"
+      - "3309:3306"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin@123
@@ -17,31 +17,32 @@ services:
       MYSQL_ROOT_HOST: '%'
     networks:
       - web
-  larvel_rest_api:
-    container_name: rest_larvel_api_website
+  slim_rest_api:
+    container_name: rest_slim_api_website
+    # command: php -S 0.0.0.0:80 -t public
     build:
       context: ./
     ports:
-      - 8002:80
+      - 8003:80
     volumes: 
       - ./src:/var/www/html/
     depends_on:
-      - larvel_data_base
+      - slim_data_base
     networks:
       - web
   # phpmyadmin
-  larvel_data_base_access:
+  slim_data_base_access:
     depends_on:
-      - larvel_data_base
-    container_name: larvel_DB_Access
+      - slim_data_base
+    container_name: slim_DB_Access
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - '8082:80'
+      - '8083:80'
     links: 
-      - larvel_data_base:larvel_data_base
+      - slim_data_base:slim_data_base
     environment:
-      PMA_HOST: rest_larvel_api_db
+      PMA_HOST: rest_slim_api_db
       PMA_PORT: 3306
     networks:
       - web

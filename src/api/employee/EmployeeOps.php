@@ -28,6 +28,7 @@ class EmployeeOps{
         }else{
             return "There is no list of users";
         }
+        $stmt->close();
     }
 }
 

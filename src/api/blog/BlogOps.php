@@ -25,11 +25,12 @@ class BlogOps{
             array_push($blogs, $blog);
         }
         if(sizeof($blogs) >0){
+            $statement->close();
             return $blogs;
         }else{
+            $statement->close();
             return "There is no list of blogs";
         }
-        $statement->close();
     }
 
     public function saveBlog($bodyData){

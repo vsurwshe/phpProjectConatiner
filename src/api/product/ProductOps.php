@@ -31,5 +31,17 @@ class ProductOps{
         }
         $statement->close();
     }
+
+    public function saveProduct($bodyData){
+        return "Save Product";
+    }
+
+    public function updateProduct(){
+        return "Update Product";
+    }
+
+    public function deleteProduct(){
+        return "Delete Product";
+    }
 }
 ?>

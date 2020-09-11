@@ -30,6 +30,17 @@ class EmployeeOps{
         }
         $stmt->close();
     }
-}
 
+    public function saveEmployee(){
+        return "Save Employee";
+    }
+
+    public function updateEmployee(){
+        return "Update Empoyee";
+    }
+
+    public function deleteEmployee(){
+        return "Delete Employee";
+    }
+}
 ?>

@@ -12,7 +12,7 @@ class GalleryOps{
     public function getALlImageList(){
         $statement = $this->$databaseConnection->prepare("SELECT `id`, `mime`, `data`, `clientName`, `clientCompnay` FROM `gallery`;");
         $statement->execute(); 
-        $statement->bind_result($id, $mime, $data, $clientName, $clientCompnay);
+        $statement->bind_result($id,  $mime, $data, $clientName, $clientCompnay);
         $images=array();
         while($statement->fetch()){ 
             $image = array(); 

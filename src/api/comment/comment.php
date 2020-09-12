@@ -16,20 +16,13 @@ switch ($method) {
         echo json_encode($comment->saveComment($input));
         break;        
     case 'PUT':
-        // print_r($request);
-        // print_r($input);
         echo json_encode($comment->updateComment());
         break;
     case 'DELETE':
-        // print_r($request);
-        // print_r($input);
         echo json_encode($comment->deleteComment());
         break;
     default:
         echo json_encode("Request method not found");
         break;
 }
-
-
-
 ?>

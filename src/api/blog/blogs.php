@@ -29,6 +29,4 @@ switch ($method) {
         echo json_encode("Request method not found");
         break;
 }
-
-
 ?>

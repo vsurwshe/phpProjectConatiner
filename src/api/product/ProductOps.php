@@ -33,7 +33,17 @@ class ProductOps{
     }
 
     public function saveProduct($bodyData){
-        return "Save Product";
+        $sqlQuery="INSERT INTO `product`(`mime`, `data`, `client_name`, `compnay_name`, `prodDisc`) VALUES (?,?,?,?,?)";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("sssss", $bodyData["mine"],addslashes($bodyData["data"]),$bodyData["clientName"],$bodyData["companyName"],$bodyData["productDiscription"]);
+        
+        // execute query
+        if($statement->execute()){
+            $statement->close();
+            return "Product details inserted Successfully";
+        }
+        $statement->close();
+        return "Product details not inserted successfully";
     }
 
     public function updateProduct(){

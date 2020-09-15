@@ -19,12 +19,16 @@ class ProductOps{
             $product['id'] = $id;
             $product['productName'] = $productName;
             $product['mime']=$mime; 
-            $product['data'] = base64_encode($data); 
+            // decode the base64 comeing blob data
+            $decodeData=base64_decode($data);
+            // store into array as string
+            $product['data'] =(string)"$decodeData"; 
             $product['clientName'] = $clientName;
             $product['companyName'] = $companyName;
             $product['prodDisc'] = $prodDisc; 
             array_push($products, $product);
         }
+        // print_r($products);
         if(sizeof($products) >0){
             return $products;
         }else{
@@ -34,14 +38,17 @@ class ProductOps{
     }
 
     public function saveProduct($bodyData){
-        $sqlQuery="INSERT INTO `product`(`productName`,`mime`, `data`, `clientName`, `companyName`, `prodDisc`) VALUES (?,?,?,?,?,?)";
+        $sqlQuery="INSERT INTO `product`( `productName`, `data`, `clientName`, `companyName`, `prodDisc`) VALUES (?,?,?,?,?)";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
-        $statement->bind_param("ssssss", $bodyData["productName"],$bodyData["mine"],addslashes($bodyData["data"]),$bodyData["clientName"],$bodyData["companyName"],$bodyData["productDiscription"]);
+        // encode it into base64
+        $decodedData = base64_encode($bodyData["data"]);
+        $statement->bind_param("sssss", $bodyData["productName"],addslashes($decodedData),$bodyData["clientName"],$bodyData["companyName"],$bodyData["productDiscription"]);
         
         // execute query
         if($statement->execute()){
+            $row=mysqli_stmt_affected_rows($statement);
             $statement->close();
-            return "Product details inserted Successfully";
+            return "$row Product details inserted Successfully";
         }
         $statement->close();
         return "Product details not inserted successfully";

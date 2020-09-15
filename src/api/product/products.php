@@ -16,14 +16,18 @@ switch ($method) {
         echo json_encode($product->saveProduct($input));
         break;        
     case 'PUT':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($product->updateProduct());
+        if((sizeof($request) >0) && ($request[0] != "")){
+           echo json_encode($product->updateProduct($request[0],$input));
+        }else{
+           echo json_encode("Please Provide the correct product id");
+        }
         break;
     case 'DELETE':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($product->deleteProduct());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($product->deleteProduct($request[0]));
+         }else{
+            echo json_encode("Please Provide the correct product id");
+         }
         break;
     default:
         echo json_encode("Request method not found");

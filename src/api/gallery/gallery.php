@@ -16,10 +16,18 @@ switch ($method) {
         echo json_encode($gallery->addImage($input));
         break;        
     case 'PUT':
-        echo json_encode($gallery->updateImageData());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($gallery->updateImageData($request[0],$input));
+        }else{
+           echo json_encode("Please Provide the correct product id");
+        }
         break;
     case 'DELETE':
-        echo json_encode($gallery->deleteImage());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($gallery->deleteImage($request[0]));
+         }else{
+            echo json_encode("Please Provide the correct product id");
+         }
         break;
     default:
         echo json_encode("Request method not found");

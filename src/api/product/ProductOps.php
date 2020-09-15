@@ -25,7 +25,7 @@ class ProductOps{
             $product['data'] =(string)"$decodeData"; 
             $product['clientName'] = $clientName;
             $product['companyName'] = $companyName;
-            $product['prodDisc'] = $prodDisc; 
+            $product['productDiscription'] = $prodDisc; 
             array_push($products, $product);
         }
         // print_r($products);
@@ -54,12 +54,34 @@ class ProductOps{
         return "Product details not inserted successfully";
     }
 
-    public function updateProduct(){
-        return "Update Product";
+    public function updateProduct($id,$bodyData){
+        $sqlQuery="UPDATE `product` SET `productName`=? ,`clientName`=? ,`companyName`=? ,`prodDisc`=? WHERE `id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("ssssi", $bodyData["productName"],$bodyData["clientName"],$bodyData["companyName"],$bodyData["productDiscription"],$id);
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        // execute query
+        if($row > 0){
+            $statement->close();
+            return "$id Id product details updated successfully";
+        }
+        $statement->close();
+        return "$id Id product details not updated successfully";
     }
 
-    public function deleteProduct(){
-        return "Delete Product";
+    public function deleteProduct($id){
+        $sqlQuery="DELETE FROM `product` WHERE `id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("i",$id);
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        // execute query
+        if($row >0){
+            $statement->close();
+            return "$id Id product details deleted successfully";
+        }
+        $statement->close();
+        return "$id Id product details not deleted successfully";
     }
 }
 ?>

@@ -52,13 +52,34 @@ class GalleryOps{
         return "Image not inserted successfully";
     }
 
-    public function updateImageData(){
-        return "Update Image";
+    public function updateImageData($id,$bodyData){
+        $sqlQuery="UPDATE `gallery` SET `mime`=?,`clientName`=?,`clientCompnay`=? WHERE `id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("sssi", $bodyData["mime"],$bodyData["eventName"],$bodyData["companyName"],$id);
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        // execute query
+        if($row > 0){
+            $statement->close();
+            return "$id Id product details updated successfully";
+        }
+        $statement->close();
+        return "$id Id product details not updated successfully";
     }
 
-    public function deleteImage(){
-        return "delete images";
+    public function deleteImage($id){
+        $sqlQuery="DELETE FROM `gallery` WHERE `id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("i",$id);
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        // execute query
+        if($row >0){
+            $statement->close();
+            return "$id Id product details deleted successfully";
+        }
+        $statement->close();
+        return "$id Id product details not deleted successfully";
     }
-
 }
 ?>

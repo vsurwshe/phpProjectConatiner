@@ -17,8 +17,11 @@ class GalleryOps{
         while($statement->fetch()){ 
             $image = array(); 
             $image['id'] = $id; 
-            $image['mime']=$mime; 
-            $image['data'] = base64_encode($data); 
+            $image['mime']=$mime;  
+            // decode the base64 comeing blob data
+            $decodeData=base64_decode($data);
+            // store into array as string
+            $image['data'] =(string)"$decodeData"; 
             $image['clientName'] = $clientName;
             $image['clientCompnay'] = $clientCompnay; 
             array_push($images, $image);
@@ -35,12 +38,15 @@ class GalleryOps{
     public function addImage($bodyData){
         $sqlQuery="INSERT INTO `gallery`(`mime`, `data`, `clientName`, `clientCompnay`) VALUES (?,?,?,?)";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
-        $statement->bind_param("ssss", $bodyData["mine"],addslashes($bodyData["data"]),$bodyData["name"],$bodyData["company"]);
+        // encode it into base64
+        $decodedData = base64_encode($bodyData["data"]);
+        $statement->bind_param("ssss", $bodyData["mine"],addslashes($decodedData),$bodyData["name"],$bodyData["company"]);
         
         // execute query
         if($statement->execute()){
+            $row=mysqli_stmt_affected_rows($statement);
             $statement->close();
-            return "Image inserted Successfully";
+            return "$row Image inserted Successfully";
         }
         $statement->close();
         return "Image not inserted successfully";

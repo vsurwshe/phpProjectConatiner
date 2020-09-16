@@ -11,17 +11,18 @@ class BlogOps{
     }
 
     public function getAllBlogs(){
-        $statement = $this->$databaseConnection->prepare("SELECT `blog_id`, `blog_name`, `blog_writer`, `categorise`, `blog_path` FROM `blogs`;");
+        $statement = $this->$databaseConnection->prepare("SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path` FROM `blogs`;");
         $statement->execute(); 
-        $statement->bind_result($blog_id, $blog_name, $blog_writer, $categorise, $blog_path);
+        $statement->bind_result($blog_id, $blog_name, $blog_writer, $blog_category, $blog_path);
         $blogs=array();
         while($statement->fetch()){ 
             $blog = array(); 
             $blog['blogId'] = $blog_id; 
             $blog['blogName']=$blog_name; 
             $blog['blogWriter'] = $blog_writer; 
-            $blog['categorise'] = $categorise;
+            $blog['blogCategory'] = $blog_category;
             $blog['blogPath'] = $blog_path; 
+            $blog['blogBody']=file_get_contents($blog_path);
             array_push($blogs, $blog);
         }
         if(sizeof($blogs) >0){
@@ -34,11 +35,10 @@ class BlogOps{
     }
 
     public function saveBlog($bodyData){
-        $blogTitle=$bodyData["blogTitle"];
+        $blogTitle=$bodyData["blogName"];
         $blogWriter=$bodyData["blogWriter"];
-        $blogCategoreies=$bodyData["blogCategoreies"];
+        $blogCategoreies=$bodyData["blogCategory"];
         $blogBody=$bodyData["blogBody"];
-        
         if (!file_exists('./developerBlogs')) {
             mkdir('./developerBlogs', 0777, true);
         }
@@ -47,13 +47,14 @@ class BlogOps{
         $file = fopen($fileName,"a+") or die(" Sorry File not created");
         // this will write the blog body in file 
         file_put_contents($fileName, $blogBody);
-
+        
         if($file){
             $result=$this->saveBlogRecord($blogTitle,$blogWriter,$blogCategoreies,$fileName);
             $response = array(
                 "FileUrl"=> $fileName,
                 "message"=>$result
             );
+            fclose($file);
             return $response;
         }else{
             return "Sorry Your blog is not created";
@@ -73,26 +74,54 @@ class BlogOps{
 
     // this function will help to save blog in the database
     public function saveBlogRecord($blogTitle,$blogWriter,$blogCategoreies,$fileName){
-        $sqlQuery="INSERT INTO `blogs`(`blog_name`, `blog_writer`, `categorise`, `blog_path`) VALUES (?,?,?,?)";
+        $sqlQuery="INSERT INTO `blogs`(`blog_name`, `blog_writer`, `blog_category`, `blog_path`) VALUES (?,?,?,?)";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
         $statement->bind_param("ssss", $blogTitle,$blogWriter,$blogCategoreies,$fileName);
-        
         // execute query
-        if($statement->execute()){
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        if($row > 0){
             $statement->close();
-            return "Blog Created Successfully";
+            return "$row blog Created Successfully";
         }
         $statement->close();
         return "Blog not created successfully";
     }
 
 
-    public  function updateBlog(){
-        return "Update Blogs";
+    public  function updateBlog($id,$bodyData){
+        $sqlQuery="UPDATE `blogs` SET `blog_name`=?, `blog_writer`=?, `blog_category`=? WHERE blog_id=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("sssi", $bodyData['blogName'],$bodyData['blogWriter'],$bodyData['blogCategory'],$id);
+        // this will create file in the directory
+        $file = fopen($bodyData['blogPath'],"w+") or die(" Sorry File not created");
+        // this will write the blog body in file 
+        file_put_contents($bodyData['blogPath'], $bodyData['blogBody']);
+        // execute query
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        if($row > 0 || $file){
+            fclose($file);
+            $statement->close();
+            return "$id blog updated Successfully";
+        }
+        $statement->close();
+        return "Blog not updated successfully";
     }
 
-    public function deleteBlog(){
-        return "Delete Blogs";
+    public function deleteBlog($id){
+        $sqlQuery="DELETE FROM `blogs` WHERE blog_id=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("i",$id);
+        // execute query
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
+        if($row > 0){
+            $statement->close();
+            return "$id blog deleted Successfully";
+        }
+        $statement->close();
+        return "Blog not deleted successfully";
     }
 }
 ?>

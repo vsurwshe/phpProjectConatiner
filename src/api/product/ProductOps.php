@@ -43,10 +43,10 @@ class ProductOps{
         // encode it into base64
         $decodedData = base64_encode($bodyData["data"]);
         $statement->bind_param("sssss", $bodyData["productName"],addslashes($decodedData),$bodyData["clientName"],$bodyData["companyName"],$bodyData["productDiscription"]);
-        
+        $statement->execute();
+        $row=mysqli_stmt_affected_rows($statement);
         // execute query
-        if($statement->execute()){
-            $row=mysqli_stmt_affected_rows($statement);
+        if($row >0){
             $statement->close();
             return "$row Product details inserted Successfully";
         }

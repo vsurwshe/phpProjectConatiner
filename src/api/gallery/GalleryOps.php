@@ -23,7 +23,7 @@ class GalleryOps{
             // store into array as string
             $image['data'] =(string)"$decodeData"; 
             $image['clientName'] = $clientName;
-            $image['clientCompnay'] = $clientCompnay; 
+            $image['clientCompany'] = $clientCompnay; 
             array_push($images, $image);
         }
         if(sizeof($images) >0){
@@ -40,7 +40,7 @@ class GalleryOps{
         $statement = $this->$databaseConnection->prepare($sqlQuery);
         // encode it into base64
         $decodedData = base64_encode($bodyData["data"]);
-        $statement->bind_param("ssss", $bodyData["mine"],addslashes($decodedData),$bodyData["name"],$bodyData["company"]);
+        $statement->bind_param("ssss", $bodyData["mine"],addslashes($decodedData),$bodyData["clientName"],$bodyData["clientCompany"]);
         
         // execute query
         if($statement->execute()){
@@ -55,7 +55,7 @@ class GalleryOps{
     public function updateImageData($id,$bodyData){
         $sqlQuery="UPDATE `gallery` SET `mime`=?,`clientName`=?,`clientCompnay`=? WHERE `id`=?";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
-        $statement->bind_param("sssi", $bodyData["mime"],$bodyData["eventName"],$bodyData["companyName"],$id);
+        $statement->bind_param("sssi", $bodyData["mime"],$bodyData["clientName"],$bodyData["clientCompany"],$id);
         $statement->execute();
         $row=mysqli_stmt_affected_rows($statement);
         // execute query

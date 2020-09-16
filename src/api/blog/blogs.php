@@ -16,14 +16,18 @@ switch ($method) {
         echo json_encode($blogsObject->saveBlog($input));
         break;        
     case 'PUT':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($blogsObject->updateBlog());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($blogsObject->updateBlog($request[0],$input));
+        }else{
+           echo json_encode("Please Provide the correct blog id");
+        }
         break;
     case 'DELETE':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($blogsObject->deleteBlog());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($blogsObject->deleteBlog($request[0],$input));
+        }else{
+           echo json_encode("Please Provide the correct blog id");
+        }
         break;
     default:
         echo json_encode("Request method not found");

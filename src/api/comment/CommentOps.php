@@ -31,6 +31,31 @@ class CommentOps{
         }
     }
 
+    public function getCommentById($id){
+        $sqlQuery="SELECT `comment_id`, `comment_name`, `comment_body`, `comment_email`, `blog_id` FROM `comments` WHERE `blog_id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param("i",$id);
+        $statement->execute(); 
+        $statement->bind_result($comment_id, $comment_name, $comment_body, $comment_email, $blog_id);
+        $comments=array();
+        while($statement->fetch()){ 
+            $comment = array(); 
+            $comment['commentId'] = $comment_id; 
+            $comment['commentName']=$comment_name; 
+            $comment['commentMessage'] = $comment_body; 
+            $comment['commentEmail'] = $comment_email;
+            $comment['blogId'] = $blog_id;
+            array_push($comments, $comment);
+        }
+        if(sizeof($comments) >0){
+            $statement->close();
+            return $comments;
+        }else{
+            $statement->close();
+            return [];
+        }
+    }
+
     public function saveComment($bodyData){
         $sqlQuery="INSERT INTO `comments`(`comment_name`, `comment_body`, `comment_email`, `blog_id`) VALUES(?,?,?,?)";
         $statement = $this->$databaseConnection->prepare($sqlQuery);

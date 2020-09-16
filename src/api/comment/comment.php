@@ -10,7 +10,11 @@ $comment= new CommentOps;
 
 switch ($method) {
     case 'GET':
-        echo json_encode($comment->getAllComments());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            echo json_encode($comment->getCommentById($request[0]));
+        }else{
+            echo json_encode($comment->getAllComments());
+        }
         break;
     case 'POST':
         echo json_encode($comment->saveComment($input));

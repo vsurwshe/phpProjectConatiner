@@ -40,16 +40,28 @@ class DashboardOps{
         $blogOps= new BlogOps();
         $listOfBlogs=$blogOps->getAllBlogs("Dashboard");
         $commentByBlogCount = array();
-        $callBlogsWiseCommentApi=function($blog) use (&$commentByBlogCount){
+        $blogsId=array();
+        $blogsData= array();
+        $callBlogsWiseCommentApi=function($blog) use (&$commentByBlogCount,&$blogsId,&$blogsData){
             $data=$this->executeBlogWiseCommentCount($blog);
-            if(count($data)>0){
-                array_push($commentByBlogCount,array(
-                    'blogId'=>$blog['blogId'],
-                    'blogData'=>$data
+            if(count($data)>0 && is_array($data)){
+                array_push($blogsId, array(
+                    "name"=>$blog['blogName'],
+                    "value"=>$blog['blogId']
                 ));
+                for ($x = 0; $x < count($data); $x++) {
+                    array_push($blogsData,array(
+                        'month'=>$data[$x]['month'],
+                        $blog['blogId']=>$data[$x]['count'],
+                    ));   
+                }
             }
         };
         array_map($callBlogsWiseCommentApi,$listOfBlogs);
+        array_push($commentByBlogCount, array(
+            "blogId"=>$blogsId,
+            "blogCommentData"=>$blogsData
+        ));
         if(sizeof($commentByBlogCount) >0){
             return $commentByBlogCount;
         }else{

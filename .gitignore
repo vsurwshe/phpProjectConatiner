@@ -1,2 +1,16 @@
 /mysql-data
 /.vscode
+src/css
+src/fonts
+src/icon
+src/images
+src/js
+src/routeconfig
+src/static
+.htaccess
+asset-manifest.json
+index*
+*.html
+*.json
+*.js
+*.txt

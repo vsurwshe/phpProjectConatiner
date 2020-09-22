@@ -10,7 +10,15 @@ $blogsObject= new BlogOps;
 
 switch ($method) {
     case 'GET':
-        echo json_encode($blogsObject->getAllBlogs());
+        if((sizeof($request) >0) && ($request[0] != "")){
+            if($request[0]== "categoery"){
+                echo json_encode($blogsObject->getCategoerys());
+            }else{
+                echo json_encode($blogsObject->getBlogById($request[0]));
+            }
+        }else{
+            echo json_encode($blogsObject->getAllBlogs());
+        }
         break;
     case 'POST':
         echo json_encode($blogsObject->saveBlog($input));

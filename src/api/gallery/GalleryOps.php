@@ -31,7 +31,7 @@ class GalleryOps{
             return $images;
         }else{
             $statement->close();
-            return "There is no list of images";
+            return [];
         }
     }
 

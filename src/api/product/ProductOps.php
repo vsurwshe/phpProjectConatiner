@@ -30,11 +30,12 @@ class ProductOps{
         }
         // print_r($products);
         if(sizeof($products) >0){
+            $statement->close();
             return $products;
         }else{
-            return "There is no list of products";
+            $statement->close();
+            return [];
         }
-        $statement->close();
     }
 
     public function saveProduct($bodyData){

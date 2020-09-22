@@ -26,7 +26,7 @@ class EmployeeOps{
         if(sizeof($users) >0){
             return $users;
         }else{
-            return "There is no list of users";
+            return [];
         }
         $stmt->close();
     }

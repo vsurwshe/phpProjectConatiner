@@ -10,8 +10,63 @@ class BlogOps{
         $this->$databaseConnection = $dataBaseObject->connect(); 
     }
 
-    public function getAllBlogs(){
-        $statement = $this->$databaseConnection->prepare("SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path` FROM `blogs`;");
+    public function getAllBlogs($otherSubFunctionCall=null){
+        $sqlQuery="SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path`,`created_at`, `updated_at` FROM `blogs`";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->execute(); 
+        $statement->bind_result($blog_id, $blog_name, $blog_writer, $blog_category, $blog_path, $created_at,$updated_at);
+        $blogs=array();
+        while($statement->fetch()){ 
+            $blog = array(); 
+            $blog['blogId'] = $blog_id; 
+            $blog['blogName']=$blog_name; 
+            $blog['blogWriter'] = $blog_writer; 
+            $blog['blogCategory'] = $blog_category;
+            $blog['blogPath'] = $blog_path; 
+            $blog['createdAt'] = $created_at; 
+            $blog['updatedAt'] = $updated_at; 
+            $blog['blogBody']=$otherSubFunctionCall ==null ? file_get_contents($blog_path) :"";
+            array_push($blogs, $blog);
+        }
+        if(sizeof($blogs) >0){
+            $statement->close();
+            return $blogs;
+        }else{
+            $statement->close();
+            return [];
+        }
+    }
+
+    public function getBlogById($id){
+        return "Get Blog By Id";
+    }
+
+    // this method will used for the list of blogs category wise
+    public function getCategoerys(){
+        $sqlQuery="SELECT DISTINCT(`blog_category`) FROM `blogs`";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->execute(); 
+        $statement->bind_result($blog_category);
+        $categorys=array();
+        while($statement->fetch()){
+            array_push($categorys, $blog_category);
+        }
+        $statement->close();
+        $blogList=array();
+        foreach ($categorys as &$value) {
+            $response=array(
+                "category"=>$value,
+                "blogsList"=>$this->getBlogsListByCategory($value)
+            );
+            array_push($blogList,$response);
+        }
+        return $blogList;
+    }
+
+    public function getBlogsListByCategory($category){
+        $sqlQuery="SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path` FROM blogs WHERE blog_category=?";
+       if( $statement = $this->$databaseConnection->prepare($sqlQuery)){
+        $statement->bind_param('s',$category);
         $statement->execute(); 
         $statement->bind_result($blog_id, $blog_name, $blog_writer, $blog_category, $blog_path);
         $blogs=array();
@@ -25,13 +80,10 @@ class BlogOps{
             $blog['blogBody']=file_get_contents($blog_path);
             array_push($blogs, $blog);
         }
-        if(sizeof($blogs) >0){
-            $statement->close();
-            return $blogs;
-        }else{
-            $statement->close();
-            return "There is no list of blogs";
-        }
+        $statement->close();
+        return $blogs;
+       }
+       return [];
     }
 
     public function saveBlog($bodyData){

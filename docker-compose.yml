@@ -1,31 +1,45 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-server-80
+  data_base:
+    image: mysql
+    container_name: restaurant_api_db
     command: --default-authentication-plugin=mysql_native_password
-#      working_dir: /application
     volumes:
-      - .:/application
-    restart: always
+      - ./mysql-data:/var/lib/mysql
+    ports: 
+      - "3308:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=my_db
-      - MYSQL_USER=vishva
-      - MYSQL_PASSWORD=root
-    ports:
-      - "8082:3306"
+      MYSQL_ROOT_PASSWORD: admin@123
+      MYSQL_USER: vishva
+      MYSQL_PASSWORD: admin@123
+      MYSQL_ROOT_HOST: '%'
     networks:
-      - web
-  website:
-    container_name: php72
+      - restaurantWeb
+  restaurant_api:
+    container_name: restaurant_api_website
     build:
       context: ./
     ports:
-      - 8001:80
+      - 8005:80
+    volumes: 
+      - ./src:/var/www/html/
     depends_on:
-      - mysql
+      - data_base
     networks:
-      - web
+      - restaurantWeb
+  data_base_access:
+    depends_on:
+      - data_base
+    container_name: restaurant_db_Access
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8085:80'
+    links: 
+      - data_base:data_base
+    environment:
+      PMA_HOST: restaurant_api_db
+      PMA_PORT: 3306
+    networks:
+      - restaurantWeb
 networks:
-   web:
+  restaurantWeb:

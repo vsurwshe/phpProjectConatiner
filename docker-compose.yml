@@ -20,7 +20,7 @@ services:
     build:
       context: ./
     ports:
-      - 8005:80
+      - 8006:80
     volumes: 
       - ./src:/var/www/html/
     depends_on:
@@ -33,7 +33,7 @@ services:
     container_name: restaurant_db_Access
     image: phpmyadmin/phpmyadmin
     ports:
-      - '8085:80'
+      - '8086:80'
     links: 
       - data_base:data_base
     environment:

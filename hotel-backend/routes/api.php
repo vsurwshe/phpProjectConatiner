@@ -27,11 +27,20 @@ Route::group([
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
-  
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });
+});
+
+Route::group([
+    'prefix' => 'store',
+    'middleware' => 'auth:api'
+], function() {
+    Route::get('list', 'StoreController@getAllStoreElements');
+    Route::post('save', 'StoreController@saveStoreElementRecord');
+    Route::put('update/{productId}', 'StoreController@updateStoreElementRecord');
+    Route::delete('delete/{productId}', 'StoreController@deleteStoreElementRecord');
 });

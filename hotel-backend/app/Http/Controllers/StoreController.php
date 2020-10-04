@@ -57,7 +57,6 @@ class StoreController extends Controller
             if($validator->fails()){
                 return response()->json(['message'=>$validator->messages(),'data'=>null],400);
             }
-
             $updatedStore= $request->all();
             $stores = Store::where('store_id',$productId)->update($updatedStore);
             if($stores){

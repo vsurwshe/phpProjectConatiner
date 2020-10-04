@@ -44,3 +44,34 @@ Route::group([
     Route::put('update/{productId}', 'StoreController@updateStoreElementRecord');
     Route::delete('delete/{productId}', 'StoreController@deleteStoreElementRecord');
 });
+
+Route::group([
+    'prefix' => 'table',
+    'middleware' => 'auth:api'
+], function() {
+    Route::get('list', 'HotelTableController@show');
+    Route::post('save', 'HotelTableController@store');
+    Route::put('update/{tableId}', 'HotelTableController@update');
+    Route::delete('delete/{tableId}', 'HotelTableController@destroy');
+});
+
+Route::group([
+    'prefix' => 'food',
+    'middleware' => 'auth:api'
+], function() {
+    Route::get('list', 'FoodController@show');
+    Route::post('save', 'FoodController@store');
+    Route::put('update/{tableId}', 'FoodController@update');
+    Route::delete('delete/{tableId}', 'FoodController@destroy');
+});
+
+
+Route::group([
+    'prefix' => 'invoice',
+    'middleware' => 'auth:api'
+], function() {
+    Route::get('list', 'InvoiceController@show');
+    Route::post('save', 'InvoiceController@store');
+    Route::put('update/{tableId}', 'InvoiceController@update');
+    Route::delete('delete/{tableId}', 'InvoiceController@destroy');
+});

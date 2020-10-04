@@ -12,6 +12,12 @@ class FoodController extends Controller
 {
 
  
+    protected $request;
+
+    public function __construct(Request $request) {
+        $this->request = $request;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -24,8 +30,10 @@ class FoodController extends Controller
             if($validator->fails()){
                 return response()->json(['message'=>$validator->messages()],400);
             }
-            $food= $request->all();
             $user = $this->request->user();
+            $food= new Food();
+            $food->food_name=$request->input('food_name');
+            $food->food_price=$request->input('food_price');
             $food->user_id=$user->id;
             $food->save();
             return response()->json(['message'=>'Successfully saved food required','data'=>$food],200);
@@ -67,9 +75,9 @@ class FoodController extends Controller
             $foodRequired= $request->all();
             $foods = Food::where('food_id',$food)->update($foodRequired);
             if($foods){
-                return response()->json(['message'=>'Successfully updated hotel table element by store '.$hotelTable, "data"=>$hotelTables ],200);
+                return response()->json(['message'=>'Successfully updated hotel table element by store '.$foods, "data"=>$foods ],200);
             }else{
-                return response()->json(['message'=>'Successfully not updated hotel table element by store '.$hotelTable],400);
+                return response()->json(['message'=>'Successfully not updated hotel table element by store '.$foods],400);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

@@ -12,6 +12,6 @@ class InvoiceItem extends Model
     ];
 
     public function user(){
-       return $this->belongsTo('App\Models\Invoice');
+       return $this->belongsTo('App\Models\Invoice')->withTimestamps();
     }
 }

@@ -27,10 +27,11 @@ class HotelTableController extends Controller
             if($validator->fails()){
                 return response()->json(['message'=>$validator->messages()],400);
             }
-            $hotelTable= $request->all();
-            print_r($hotelTable);
             $user = $this->request->user();
-            print($user->id);
+            $hotelTable= new HotelTable();
+            $hotelTable->table_name=$request->input('table_name');
+            $hotelTable->table_customer_size=$request->input('table_customer_size');
+            $hotelTable->table_direction=$request->input('table_direction');
             $hotelTable->user_id=$user->id;
             $hotelTable->save();
             return response()->json(['message'=>'Successfully saved hotel table','data'=>$hotelTable],200);
@@ -83,11 +84,11 @@ class HotelTableController extends Controller
      */
     public function destroy($hotelTable){
         try {
-            $hotelTables = Store::where('table_id',$hotelTable)->delete();
+            $hotelTables = HotelTable::where('table_id',$hotelTable)->delete();
             if($hotelTables){
-                return response()->json(['message'=>'Successfully deleted table by id '.$productId],200);
+                return response()->json(['message'=>'Successfully deleted table by id '.$hotelTable],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted table by id '.$productId],400);
+                return response()->json(['message'=>'Successfully not deleted table by id '.$hotelTable],400);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

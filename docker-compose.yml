@@ -23,6 +23,7 @@ services:
       - 8006:80
     volumes: 
       - ./src:/var/www/html/
+      - ./vscode-server:/root/.vscode-server
     depends_on:
       - data_base
     networks:

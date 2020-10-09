@@ -10,13 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
 {
-
     protected $request;
-
     public function __construct(Request $request) {
         $this->request = $request;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -110,13 +107,13 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy($invoiceId){
+    public function destroy(string $invoiceId){
         try {
             $invoice = Invoice::where('invoice_id',$invoiceId)->delete();
             if($invoice){
                 return response()->json(['message'=>'Successfully deleted table by id '.$invoiceId],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted table by id '.$invoiceId],400);
+                return response()->json(['message'=>'Successfully not deleted table by id '.$invoiceId],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

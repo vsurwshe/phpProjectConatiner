@@ -51,7 +51,7 @@ class StoreController extends Controller
         }
     }
     
-    public function updateStoreElementRecord(Request $request, $productId){
+    public function updateStoreElementRecord(Request $request, string $productId){
         try {
             $validator = $this->validateStore();
             if($validator->fails()){
@@ -62,20 +62,20 @@ class StoreController extends Controller
             if($stores){
                 return response()->json(['message'=>'Successfully updated store element by store '.$productId, "data"=>$stores ],200);
             }else{
-                return response()->json(['message'=>'Successfully not updated store element by store '.$productId],400);
+                return response()->json(['message'=>'Successfully not updated store element by store '.$productId],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);
         }
     }
 
-    public function deleteStoreElementRecord(Request $request, $productId){
+    public function deleteStoreElementRecord(Request $request, string $productId){
         try {
             $stores = Store::where('store_id',$productId)->delete();
             if($stores){
                 return response()->json(['message'=>'Successfully deleted store element by store id '.$productId],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted store element by store id '.$productId],400);
+                return response()->json(['message'=>'Successfully not deleted store element by store id '.$productId],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

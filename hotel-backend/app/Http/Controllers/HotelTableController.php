@@ -58,7 +58,7 @@ class HotelTableController extends Controller
      * @param  \App\Models\HotelTable  $hotelTable
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $hotelTable){
+    public function update(Request $request, string $hotelTable){
         try {
             $validator = $this->validateStore();
             if($validator->fails()){
@@ -69,7 +69,7 @@ class HotelTableController extends Controller
             if($hotelTables){
                 return response()->json(['message'=>'Successfully updated table by id '.$hotelTable, "data"=>$hotelTables ],200);
             }else{
-                return response()->json(['message'=>'Successfully not updated table by id '.$hotelTable],400);
+                return response()->json(['message'=>'Successfully not updated table by id '.$hotelTable],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);
@@ -82,13 +82,13 @@ class HotelTableController extends Controller
      * @param  \App\Models\HotelTable  $hotelTable
      * @return \Illuminate\Http\Response
      */
-    public function destroy($hotelTable){
+    public function destroy(string $hotelTable){
         try {
             $hotelTables = HotelTable::where('table_id',$hotelTable)->delete();
             if($hotelTables){
                 return response()->json(['message'=>'Successfully deleted table by id '.$hotelTable],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted table by id '.$hotelTable],400);
+                return response()->json(['message'=>'Successfully not deleted table by id '.$hotelTable],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

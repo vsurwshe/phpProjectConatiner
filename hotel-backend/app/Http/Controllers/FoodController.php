@@ -10,14 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class FoodController extends Controller
 {
-
- 
     protected $request;
-
     public function __construct(Request $request) {
         $this->request = $request;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +62,7 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $food){
+    public function update(Request $request, string $food){
         try {
             $validator = $this->validateStore();
             if($validator->fails()){
@@ -77,7 +73,7 @@ class FoodController extends Controller
             if($foods){
                 return response()->json(['message'=>'Successfully updated hotel table element by store '.$foods, "data"=>$foods ],200);
             }else{
-                return response()->json(['message'=>'Successfully not updated hotel table element by store '.$foods],400);
+                return response()->json(['message'=>'Successfully not updated hotel table element by store '.$foods],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);
@@ -90,13 +86,13 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function destroy($food){
+    public function destroy(string $food){
         try {
             $foods = Food::where('food_id',$food)->delete();
             if($foods){
                 return response()->json(['message'=>'Successfully deleted food by id '.$food],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted food by id '.$food],400);
+                return response()->json(['message'=>'Successfully not deleted food by id '.$food],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

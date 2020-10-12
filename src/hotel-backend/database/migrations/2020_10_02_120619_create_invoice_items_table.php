@@ -19,7 +19,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->string('invoice_item_price');
             $table->bigInteger('invoice_item_qty');
             $table->string('invoice_item_total_price');
-            $table->bigInteger('invoice_id')->unsigned()->index();;
+            $table->bigInteger('invoice_id')->unsigned()->index();
             $table->timestamps();
             $table->foreign('invoice_id')
                     ->references('invoice_id')

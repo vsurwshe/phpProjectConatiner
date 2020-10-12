@@ -28,11 +28,21 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
+            'mobile_number' => 'required|string',
+            'company_name' => 'required|string',
+            'company_address' => 'required|string',
+            'adhar_number' => 'required|string',
+            'pan_number' => 'required|string',
             'password' => 'required|string|confirmed'
         ]);
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
+            'mobile_number' => $request->mobile_number,
+            'company_name' => $request->company_name,
+            'company_address' => $request->company_address,
+            'adhar_number' => $request->adhar_number,
+            'pan_number' => $request->pan_number,
             'password' => bcrypt($request->password)
         ]);
         $user->save();

@@ -19,7 +19,7 @@ class CreateInvoiceTable extends Migration
             $table->string('invoice_sub_total');
             $table->string('invoice_gst');
             $table->string('invoice_total_price');
-            $table->bigInteger('user_id')->unsigned()->index();;
+            $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
             $table->foreign('user_id')
                     ->references('id')

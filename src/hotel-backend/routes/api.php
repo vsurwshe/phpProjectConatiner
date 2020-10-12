@@ -75,3 +75,24 @@ Route::group([
     Route::put('update/{tableId}', 'InvoiceController@update');
     Route::delete('delete/{tableId}', 'InvoiceController@destroy');
 });
+
+Route::group([
+    'prefix' => 'orders/table',
+    'middleware' => 'auth:api'
+], function() {
+    Route::get('freeTabelList', 'FreeTabelController@show');
+    Route::get('bookedTabelList', 'BookedTabelController@show');
+    Route::post('save', 'BookedTabelController@store');
+    Route::put('update/{tableId}', 'BookedTabelController@update');
+    Route::delete('delete/{tableId}', 'BookedTabelController@destroy');
+});
+
+Route::group([
+    'prefix' => 'orders/food',
+    'middleware' => 'auth:api'
+], function() {
+    // Route::get('list', 'OrderFoodController@show');
+    Route::post('save', 'OrderFoodController@store');
+    Route::put('update/{tableId}', 'OrderFoodController@update');
+    Route::delete('delete/{tableId}', 'OrderFoodController@destroy');
+});

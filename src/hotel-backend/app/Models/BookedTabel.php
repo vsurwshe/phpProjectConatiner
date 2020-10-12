@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HotelTable extends Model
+class BookedTabel extends Model
 {
     protected $fillable = [
-        'table_name', 'table_customer_size', 'table_direction', 'table_booked', 'user_id'
+        'booked_tabel_name', 'booked_tabel_customer_size', 'table_id'
     ];
 
     public function user(){
-       return $this->belongsTo('App\Models\User');
+       return $this->belongsTo('App\Models\HotelTable');
     }
 }

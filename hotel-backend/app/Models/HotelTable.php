@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HotelTable extends Model
 {
     protected $fillable = [
-        'table_name', 'table_customer_size', 'table_direction', 'user_id'
+        'table_name', 'table_customer_size', 'table_direction', 'table_booked', 'user_id'
     ];
 
     public function user(){

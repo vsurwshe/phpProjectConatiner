@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookedTabel;
+use App\Models\HotelTable;
 use App\Models\OrderFood;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,11 +28,15 @@ class BookedTabelController extends Controller
                 return response()->json(['message'=>$validator->messages()],400);
             }
             $user = $this->request->user();
-            $request->request->add(['user_id' => $user->id]);
             $bookedTabel= $request->all();
-            $foods = BookedTabel::create($bookedTabel);
-            if($foods){
-                return response()->json(['message'=>'Successfully booked hotel table', "data"=>$foods ],200);
+            $updateResult= HotelTable::where('table_id',$request->table_id)->update(array('table_booked'=>1));
+            if($updateResult){
+                $result = BookedTabel::create($bookedTabel);
+                if($result){
+                    return response()->json(['message'=>'Successfully booked hotel table', "data"=>$result ],200);
+                }else{
+                    return response()->json(['message'=>'Successfully not booked hotel table'],400);
+                }
             }else{
                 return response()->json(['message'=>'Successfully not booked hotel table'],400);
             }
@@ -51,7 +56,7 @@ class BookedTabelController extends Controller
         try {
             $user = $this->request->user();
             $resutlArray=array();
-            $bookedTabels = BookedTabel::where('user_id',$user->id)->get();
+            $bookedTabels = HotelTable::where('user_id',$user->id)->where('table_booked',1)->get();
             $OrderFoodResult=array();
             if(sizeof($bookedTabels)>0){
                 foreach($bookedTabels as $item){
@@ -98,13 +103,14 @@ class BookedTabelController extends Controller
      * @param  \App\Models\bookedTabel  $bookedTabel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(string $bookedTabel){
+    public function destroy(string $tabelId){
         try {
-            $foods = BookedTabel::where('booked_tabel_id',$bookedTabel)->delete();
-            if($foods){
-                return response()->json(['message'=>'Successfully deleted table by id '.$bookedTabel],200);
+            $updateResult= HotelTable::where('table_id',$tabelId)->update(array('table_booked'=>0));
+            $result = BookedTabel::where('table_id',$tabelId)->delete();
+            if($result){
+                return response()->json(['message'=>'Successfully deleted table by id '.$tabelId],200);
             }else{
-                return response()->json(['message'=>'Successfully not deleted table by id '.$bookedTabel],404);
+                return response()->json(['message'=>'Successfully not deleted table by id '.$tabelId],404);
             }
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);
@@ -115,6 +121,7 @@ class BookedTabelController extends Controller
         return Validator::make(request()->all(), [
             'booked_tabel_name' => 'required',
             'booked_tabel_customer_size' => 'required',
+            'table_id' => 'required',
         ]);
     }
 }

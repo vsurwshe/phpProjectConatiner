@@ -18,6 +18,7 @@ class CreateHotelTablesTable extends Migration
             $table->string('table_name');
             $table->bigInteger('table_customer_size');
             $table->string('table_direction');
+            $table->bigInteger('table_booked');
             $table->bigInteger('user_id')->unsigned()->index();;
             $table->timestamps();
             $table->foreign('user_id')

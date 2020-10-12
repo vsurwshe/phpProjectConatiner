@@ -80,7 +80,8 @@ Route::group([
     'prefix' => 'orders/table',
     'middleware' => 'auth:api'
 ], function() {
-    Route::get('list', 'BookedTabelController@show');
+    Route::get('freeTabelList', 'FreeTabelController@show');
+    Route::get('bookedTabelList', 'BookedTabelController@show');
     Route::post('save', 'BookedTabelController@store');
     Route::put('update/{tableId}', 'BookedTabelController@update');
     Route::delete('delete/{tableId}', 'BookedTabelController@destroy');

@@ -17,11 +17,11 @@ class CreateBookedTabelsTable extends Migration
             $table->bigIncrements('booked_tabel_id');
             $table->string('booked_tabel_name');
             $table->string('booked_tabel_customer_size');
-            $table->bigInteger('user_id')->unsigned()->index();
+            $table->bigInteger('table_id')->unsigned()->index();
             $table->timestamps();
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
+            $table->foreign('table_id')
+                    ->references('table_id')
+                    ->on('hotel_tables')
                     ->onDelete('cascade');
         });
     }

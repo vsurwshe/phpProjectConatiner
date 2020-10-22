@@ -12,8 +12,22 @@ class OrderFoodController extends Controller
     public function __construct(Request $request) {
         $this->request = $request;
     }
+
+    public function getOrdersByTabelId(string $bookedTabelId){
+        try {
+            $result=OrderFood::where('booked_tabel_id',$bookedTabelId)->get();
+            if($result){
+                return response()->json(['message'=>'Successfully created order food', "data"=>$result],200);
+            }else{
+                return response()->json(['message'=>'Successfully not created order food'],400);
+            }
+        }catch (\Exception $th) {
+            return response()->json(['message'=>$th->getMessage()],400);
+        }
+    }
+
     /**
-     * Store a newly created resource in storage.
+         * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -27,7 +41,7 @@ class OrderFoodController extends Controller
             $orderFood= $request->all();
             $result = OrderFood::create($orderFood);
             if($result){
-                return response()->json(['message'=>'Successfully created order food', "data"=>$result ],200);
+                return response()->json(['message'=>'Successfully created order food', "data"=>$result],200);
             }else{
                 return response()->json(['message'=>'Successfully not created order food'],400);
             }

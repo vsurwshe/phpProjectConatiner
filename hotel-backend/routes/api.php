@@ -91,7 +91,7 @@ Route::group([
     'prefix' => 'orders/food',
     'middleware' => 'auth:api'
 ], function() {
-    // Route::get('list', 'OrderFoodController@show');
+    Route::get('list/{tableId}', 'OrderFoodController@getOrdersByTabelId');
     Route::post('save', 'OrderFoodController@store');
     Route::put('update/{tableId}', 'OrderFoodController@update');
     Route::delete('delete/{tableId}', 'OrderFoodController@destroy');

@@ -63,7 +63,11 @@ class BookedTabelController extends Controller
                 foreach($bookedTabels as $item){
                     $bookTableRecord= BookedTabel::where('table_id',$item->table_id)->get();
                     $OrderFoodRecord= OrderFood::where('booked_tabel_id',$bookTableRecord[0]->booked_tabel_id)->get();
-                    array_push($orderFoodResult,$OrderFoodRecord);
+                    array_push($orderFoodResult, array(
+                        "table"=>$bookTableRecord[0],
+                        "food_list"=> $OrderFoodRecord,
+                        "food_count"=> count($OrderFoodRecord)
+                    ));
                     array_push($listOfBookedTabels,$bookTableRecord[0]);
                 }
             }

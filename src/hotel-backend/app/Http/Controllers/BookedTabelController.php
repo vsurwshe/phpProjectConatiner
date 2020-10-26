@@ -57,16 +57,23 @@ class BookedTabelController extends Controller
             $user = $this->request->user();
             $resutlArray=array();
             $bookedTabels = HotelTable::where('user_id',$user->id)->where('table_booked',1)->get();
-            $OrderFoodResult=array();
+            $orderFoodResult=array();
+            $listOfBookedTabels= array();
             if(sizeof($bookedTabels)>0){
                 foreach($bookedTabels as $item){
-                    $OrderFoodRecord= OrderFood::where('booked_tabel_id',$item->booked_tabel_id)->get();
-                    array_push($OrderFoodResult,$OrderFoodRecord);
+                    $bookTableRecord= BookedTabel::where('table_id',$item->table_id)->get();
+                    $OrderFoodRecord= OrderFood::where('booked_tabel_id',$bookTableRecord[0]->booked_tabel_id)->get();
+                    array_push($orderFoodResult, array(
+                        "table"=>$bookTableRecord[0],
+                        "food_list"=> $OrderFoodRecord,
+                        "food_count"=> count($OrderFoodRecord)
+                    ));
+                    array_push($listOfBookedTabels,$bookTableRecord[0]);
                 }
             }
             return response()->json(['message'=>'Success','data'=>array(
-                "bookedTables"=>$bookedTabels,
-                "OrderFoodResult"=>$OrderFoodResult
+                "bookedTables"=>$listOfBookedTabels,
+                "OrderFoodResult"=>$orderFoodResult
             )],200);
         } catch (\Exception $th) {
             return response()->json(['message'=>$th->getMessage()],400);

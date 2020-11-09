@@ -7,6 +7,7 @@ src/images
 src/js
 src/routeconfig
 src/static
+src/app
 .htaccess
 asset-manifest.json
 index*
@@ -14,3 +15,4 @@ index*
 *.json
 *.js
 *.txt
+vscode-server

@@ -8,10 +8,8 @@ services:
       - ./mysql-data:/var/lib/mysql
     ports: 
       - "3310:3306"
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin@123
-      # MYSQL_DATABASE: PHPRESTAPI
       MYSQL_USER: vishva
       MYSQL_PASSWORD: admin@123
       MYSQL_ROOT_HOST: '%'
@@ -19,7 +17,6 @@ services:
       - web
   php_rest_api:
     container_name: php_rest_api_website
-    # command: php -S 0.0.0.0:80 -t public
     build:
       context: ./
     ports:
@@ -36,7 +33,6 @@ services:
       - php_data_base
     container_name: php_DB_Access
     image: phpmyadmin/phpmyadmin
-    restart: always
     ports:
       - '8084:80'
     links: 

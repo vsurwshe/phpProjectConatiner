@@ -16,7 +16,7 @@ services:
     # networks:
     #   - restaurantWeb
   restaurant_api:
-    container_name: restaurant_api_website
+    container_name: hotel_api
     build:
       context: ./
     ports:

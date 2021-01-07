@@ -1,22 +1,22 @@
-version: '3'
+version: '3.5'
 services:
-  slim_data_base:
-    image: mysql
-    container_name: rest_slim_api_db
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-    ports: 
-      - "3309:3306"
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin@123
-      # MYSQL_DATABASE: PHPRESTAPI
-      MYSQL_USER: vishva
-      MYSQL_PASSWORD: admin@123
-      MYSQL_ROOT_HOST: '%'
-    networks:
-      - web
+  # slim_data_base:
+  #   image: mysql
+  #   container_name: rest_slim_api_db
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
+  #   ports: 
+  #     - "3309:3306"
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: admin@123
+  #     # MYSQL_DATABASE: PHPRESTAPI
+  #     MYSQL_USER: vishva
+  #     MYSQL_PASSWORD: admin@123
+  #     MYSQL_ROOT_HOST: '%'
+  #   networks:
+  #     - web
   slim_rest_api:
     container_name: rest_slim_api_website
     # command: php -S 0.0.0.0:80 -t public
@@ -26,25 +26,30 @@ services:
       - 8003:80
     volumes: 
       - ./src:/var/www/html/
-    depends_on:
-      - slim_data_base
+      - ./vscode-server:/root/.vscode-server
+    # depends_on:
+    #   - slim_data_base
     networks:
-      - web
+      - proxynet
   # phpmyadmin
-  slim_data_base_access:
-    depends_on:
-      - slim_data_base
-    container_name: slim_DB_Access
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    ports:
-      - '8083:80'
-    links: 
-      - slim_data_base:slim_data_base
-    environment:
-      PMA_HOST: rest_slim_api_db
-      PMA_PORT: 3306
-    networks:
-      - web
+  # slim_data_base_access:
+  #   depends_on:
+  #     - slim_data_base
+  #   container_name: slim_DB_Access
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - '8083:80'
+  #   links: 
+  #     - slim_data_base:slim_data_base
+  #   environment:
+  #     PMA_HOST: rest_slim_api_db
+  #     PMA_PORT: 3306
+  #   networks:
+  #     - web
 networks:
-   web:
+  proxynet:
+    name: common_network
+# networks:
+#   proxynet:
+#      name: common_network

@@ -18,6 +18,7 @@ services:
   #   networks:
   #     - web
   slim_rest_api:
+    image: slim_api_service
     container_name: rest_slim_api_website
     # command: php -S 0.0.0.0:80 -t public
     build:

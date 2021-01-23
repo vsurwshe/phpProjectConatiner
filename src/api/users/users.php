@@ -10,20 +10,33 @@ $user= new UsersOps;
 
 switch ($method) {
     case 'GET':
-        echo json_encode($user->getAllComments());
+        try {
+            $operation=$_GET["operation"];
+            $id=$_GET["id"];
+            if($operation == 'DELETE' && !is_null($id)){
+                if($id && !is_null($id)){
+                    echo json_encode($user->deleteComment());
+                }else{
+                    throw new Exception("Please Provide the correct id");
+                }
+            }else{
+                echo json_encode($user->getAllComments());
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
         break;
     case 'POST':
-        echo json_encode($user->userLogin($input));
-        break;        
-    case 'PUT':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($user->updateComment());
-        break;
-    case 'DELETE':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($user->deleteComment());
+        try {
+            $id=$_GET["id"];
+            if($id && !is_null($id)){
+                echo json_encode($user->updateComment());
+            }else{
+                echo json_encode($user->userLogin($input));
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
         break;
     default:
         echo json_encode("Request method not found");

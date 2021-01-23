@@ -23,6 +23,7 @@ services:
     ports:
       - 8004:80
     volumes: 
+      - ./vscode-server:/root/.vscode-server
       - ./src:/var/www/html/
     # depends_on:
       # - php_data_base

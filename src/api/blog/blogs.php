@@ -10,32 +10,51 @@ $blogsObject= new BlogOps;
 
 switch ($method) {
     case 'GET':
-        if((sizeof($request) >0) && ($request[0] != "")){
-            if($request[0]== "categoery"){
-                echo json_encode($blogsObject->getCategoerys());
+        try {
+            $operation=$_GET["operation"];
+            $id=$_GET["id"];
+            if($operation == 'DELETE' && !is_null($id)){
+                if($id && !is_null($id)){
+                    echo json_encode($blogsObject->deleteBlog($id));
+                }else{
+                    throw new Exception("Please Provide the correct blog id");
+                }
+            }else if((sizeof($request) >0) && ($request[0] != "")){
+                if($request[0]== "categoery"){
+                    echo json_encode($blogsObject->getCategoerys());
+                }else{
+                    echo json_encode($blogsObject->getBlogById($request[0]));
+                }
             }else{
-                echo json_encode($blogsObject->getBlogById($request[0]));
+                echo json_encode($blogsObject->getAllBlogs());
             }
-        }else{
-            echo json_encode($blogsObject->getAllBlogs());
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
         }
         break;
     case 'POST':
-        echo json_encode($blogsObject->saveBlog($input));
+        try {
+            $id=$_GET["id"];
+            if($id && !is_null($id)){
+                echo json_encode($blogsObject->updateBlog($id,$input));
+            }else{
+                echo json_encode($blogsObject->saveBlog($input));
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
         break;        
-    case 'PUT':
-        if((sizeof($request) >0) && ($request[0] != "")){
-            echo json_encode($blogsObject->updateBlog($request[0],$input));
-        }else{
-           echo json_encode("Please Provide the correct blog id");
-        }
-        break;
     case 'DELETE':
-        if((sizeof($request) >0) && ($request[0] != "")){
-            echo json_encode($blogsObject->deleteBlog($request[0],$input));
-        }else{
-           echo json_encode("Please Provide the correct blog id");
-        }
+        try {
+            $id=$_GET["id"];
+            if($id && !is_null($id)){
+                echo json_encode($blogsObject->deleteBlog($request[0],$input));
+            }else{
+                throw new Exception("Please Provide the correct blog id");
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }   
         break;
     default:
         echo json_encode("Request method not found");

@@ -25,12 +25,6 @@ switch ($method) {
             echo json_encode("Called Post");
         }
         break;        
-    case 'PUT':
-        echo json_encode("Called Put");
-        break;
-    case 'DELETE':
-        echo json_encode("Called Delete");
-        break;
     default:
         echo json_encode("Request method not found");
         break;

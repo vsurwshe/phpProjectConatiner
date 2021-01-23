@@ -10,21 +10,34 @@ $employee= new EmployeeOps;
 
 switch ($method) {
     case 'GET':
-        echo json_encode($employee->getAllUsers());
+        try {
+            $operation=$_GET["operation"];
+            $id=$_GET["id"];
+            if($operation == 'DELETE' && !is_null($id)){
+                if($id && !is_null($id)){
+                    echo json_encode($employee->deleteEmployee());
+                }else{
+                    throw new Exception("Please Provide the correct id");
+                }
+            }else{
+                echo json_encode($employee->getAllUsers());
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
         break;
     case 'POST':
-        echo json_encode($employee->saveEmployee($input));
+        try {
+            $id=$_GET["id"];
+            if($id && !is_null($id)){
+                echo json_encode($employee->updateEmployee());
+            }else{
+                echo json_encode($employee->saveEmployee($input));
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
         break;        
-    case 'PUT':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($employee->updateEmployee());
-        break;
-    case 'DELETE':
-        // print_r($request);
-        // print_r($input);
-        echo json_encode($employee->deleteEmployee());
-        break;
     default:
         echo json_encode("Request method not found");
         break;

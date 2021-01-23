@@ -10,25 +10,34 @@ $gallery= new GalleryOps;
 
 switch ($method) {
     case 'GET':
-        echo json_encode($gallery->getALlImageList());
-        break;
-    case 'POST':
-        echo json_encode($gallery->addImage($input));
-        break;        
-    case 'PUT':
-        if((sizeof($request) >0) && ($request[0] != "")){
-            echo json_encode($gallery->updateImageData($request[0],$input));
-        }else{
-           echo json_encode("Please Provide the correct product id");
+        try {
+            $operation=$_GET["operation"];
+            $id=$_GET["id"];
+            if($operation == 'DELETE' && !is_null($id)){
+                if($id && !is_null($id)){
+                    echo json_encode($gallery->deleteImage($id));
+                }else{
+                    throw new Exception("Please Provide the correct id");
+                }
+            }else{
+                echo json_encode($gallery->getALlImageList());
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
         }
         break;
-    case 'DELETE':
-        if((sizeof($request) >0) && ($request[0] != "")){
-            echo json_encode($gallery->deleteImage($request[0]));
-         }else{
-            echo json_encode("Please Provide the correct product id");
-         }
-        break;
+    case 'POST':
+        try {
+            $id=$_GET["id"];
+            if($id && !is_null($id)){
+                echo json_encode($gallery->updateImageData($id,$input));
+            }else{
+                echo json_encode($gallery->addImage($input));
+            }
+        } catch (Exception $th) {
+            echo json_encode("Error : ". $th->getMessage());
+        }
+        break;        
     default:
         echo json_encode("Request method not found");
         break;

@@ -1,6 +1,5 @@
 <?php
-ini_set( "display_errors", 0); 
-
+// ini_set( "display_errors", 0); 
 class BlogOps{
 
     private $databaseConnection; 
@@ -11,6 +10,7 @@ class BlogOps{
         $this->$databaseConnection = $dataBaseObject->connect(); 
     }
 
+    // this method will used for getting all blogs
     public function getAllBlogs($otherSubFunctionCall=null){
         $sqlQuery="SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path`,`created_at`, `updated_at` FROM `blogs`";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
@@ -38,8 +38,28 @@ class BlogOps{
         }
     }
 
+    // this function will used for the get blogs by id
     public function getBlogById($id){
-        return "Get Blog By Id";
+        $sqlQuery="SELECT `blog_name`, `blog_writer`, `blog_category`, `blog_path`,`created_at`, `updated_at` FROM `blogs` Where `blog_id`=?";
+        $statement = $this->$databaseConnection->prepare($sqlQuery);
+        $statement->bind_param('i', $id);
+        $statement->execute(); 
+        $result = $statement->get_result(); 
+        $row = $result->fetch_assoc();
+        if($row){
+            $blog = array();
+            $blog['blogId'] = $id; 
+            $blog['blogName']=$row['blog_name']; 
+            $blog['blogWriter'] = $row['blog_writer']; 
+            $blog['blogCategory'] = $row['blog_category'];
+            $blog['blogPath'] = $row['blog_path']; 
+            $blog['createdAt'] = $row['created_at']; 
+            $blog['updatedAt'] = $row['updated_at']; 
+            $blog['blogBody']=$otherSubFunctionCall ==null ? file_get_contents($row['blog_path']) :"";
+            return $blog;
+        }else{
+            throw new Exception("There is no record for id $id");
+        }
     }
 
     // this method will used for the list of blogs category wise
@@ -64,6 +84,7 @@ class BlogOps{
         return $blogList;
     }
 
+    // this method will used for getting blog list by category
     public function getBlogsListByCategory($category){
         $sqlQuery="SELECT `blog_id`, `blog_name`, `blog_writer`, `blog_category`, `blog_path` FROM blogs WHERE blog_category=?";
        if( $statement = $this->$databaseConnection->prepare($sqlQuery)){
@@ -100,7 +121,6 @@ class BlogOps{
         $file = fopen($fileName,"a+") or die(" Sorry File not created");
         // this will write the blog body in file 
         file_put_contents($fileName, $blogBody);
-        
         if($file){
             $result=$this->saveBlogRecord($blogTitle,$blogWriter,$blogCategoreies,$fileName);
             $response = array(
@@ -110,7 +130,7 @@ class BlogOps{
             fclose($file);
             return $response;
         }else{
-            return "Sorry Your blog is not created";
+            throw new Exception("Sorry Your blog is not created");
         }
     }
 
@@ -136,34 +156,44 @@ class BlogOps{
         if($row > 0){
             $statement->close();
             return "$row blog Created Successfully";
-        }
-        $statement->close();
-        return "Blog not created successfully";
-    }
-
-
-    public  function updateBlog($id,$bodyData){
-        $sqlQuery="UPDATE `blogs` SET `blog_name`=?, `blog_writer`=?, `blog_category`=? WHERE blog_id=?";
-        $statement = $this->$databaseConnection->prepare($sqlQuery);
-        $statement->bind_param("sssi", $bodyData['blogName'],$bodyData['blogWriter'],$bodyData['blogCategory'],$id);
-        // this will create file in the directory
-        $file = fopen($bodyData['blogPath'],"w+") or die(" Sorry File not created");
-        // this will write the blog body in file 
-        file_put_contents($bodyData['blogPath'], $bodyData['blogBody']);
-        // execute query
-        $statement->execute();
-        $row=mysqli_stmt_affected_rows($statement);
-        if($row > 0 || $file){
-            fclose($file);
+        }else{
             $statement->close();
-            return "$id blog updated Successfully";
+            throw new Exception("Blog not created successfully");
         }
-        $statement->close();
-        return "Blog not updated successfully";
     }
 
+    // this method will used for updating blog
+    public  function updateBlog($id,$bodyData){
+        $currentBlogData=$this->getBlogById($id);
+        if($currentBlogData && !is_null($currentBlogData)){
+            $currentDirectory=dirname(__FILE__);
+            $filterPath=explode("./", $currentBlogData['blogPath']);
+            $filePath=$currentDirectory."/".$filterPath[1];
+            $currentFileConent=file_get_contents($filePath);
+            $sqlQuery="UPDATE `blogs` SET `blog_name`=?, `blog_writer`=?, `blog_category`=? WHERE blog_id=?";
+            $statement = $this->$databaseConnection->prepare($sqlQuery);
+            $statement->bind_param("sssi", $bodyData['blogName'],$bodyData['blogWriter'],$bodyData['blogCategory'],$id); 
+            if(!$statement->execute()){
+                throw new Exception("Statement not executed");
+            }else{
+                $updatedConent=file_put_contents($filePath, $bodyData["blogBody"], LOCK_EX);
+                $row=mysqli_stmt_affected_rows($statement);
+                if ($row >0) {
+                    $statement->close();
+                    return "$id blog updated with row Successfully";
+                } else {
+                    $statement->close();
+                    return "$id updated without row successfully";
+                }
+            }
+        }else{
+            throw new Exception("Sorry for there is no record for the $id");
+        }
+    }
+
+    // this function will used for delete blog record
     public function deleteBlog($id){
-        $sqlQuery="DELETE FROM `blogs` WHERE blog_id=?";
+        $sqlQuery="DELETE FROM `blogs` WHERE `blog_id`=?";
         $statement = $this->$databaseConnection->prepare($sqlQuery);
         $statement->bind_param("i",$id);
         // execute query
@@ -172,9 +202,10 @@ class BlogOps{
         if($row > 0){
             $statement->close();
             return "$id blog deleted Successfully";
+        }else{
+            $statement->close();
+            throw new Exception("Blog not deleted successfully");
         }
-        $statement->close();
-        return "Blog not deleted successfully";
     }
 }
 ?>

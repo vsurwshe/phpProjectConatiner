@@ -1,45 +1,19 @@
-version: '3'
+version: '3.5'
 services:
-  data_base:
-    image: mysql
-    container_name: restaurant_api_db
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-    ports: 
-      - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: admin@123
-      MYSQL_USER: vishva
-      MYSQL_PASSWORD: admin@123
-      MYSQL_ROOT_HOST: '%'
-    networks:
-      - restaurantWeb
-  restaurant_api:
-    container_name: restaurant_api_website
+  paniwala_api:
+    image: paniwala_rest_api
+    container_name: paniwala_api
     build:
       context: ./
     ports:
-      - 8005:80
+      - 8001:80
     volumes: 
       - ./src:/var/www/html/
-    depends_on:
-      - data_base
-    networks:
-      - restaurantWeb
-  data_base_access:
-    depends_on:
-      - data_base
-    container_name: restaurant_db_Access
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - '8085:80'
-    links: 
-      - data_base:data_base
-    environment:
-      PMA_HOST: restaurant_api_db
-      PMA_PORT: 3306
+      - ./vscode-server:/root/.vscode-server
+    # depends_on:
+    #   - data_base
     networks:
       - restaurantWeb
 networks:
   restaurantWeb:
+    name: net
